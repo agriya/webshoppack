@@ -1,0 +1,65 @@
+/**
+*
+* @author		ganesh_119at09 (Sridharan Team)
+* @copyright 	Copyright (c) 2012 {@link http://www.agriya.com Agriya Infoway}
+* @license 		http://www.agriya.com Agriya Infoway Licence
+* @version 		SVN: $Id: mobile.css ganesh_119at09 $
+* @since 		2013-10-09
+*/
+
+
+/** -- General
+===========================================*/
+.navbar .navbar-toggle {
+	background-color:#54739d;
+	margin-top:15px;
+}
+
+.navbar .navbar-toggle .icon-bar {
+	background-color:#fff;
+}
+
+/** --  Small devices  
+============================================*/
+@media (max-width: 767px) {
+.title-one {
+	font-size:24px;
+}
+}
+
+/** --  Small devices (tablets and 768px) 
+=================================================*/
+@media (min-width: 800px) and (max-width: 1136px) {
+  .col-lg-2, 
+  .col-lg-3, 
+  .col-lg-4, 
+  .col-lg-6,
+  .col-lg-7,
+  .col-lg-10 {
+    float: left;
+  }
+  .col-lg-10 {
+    width: 78%;
+  }
+  .col-lg-6 {
+    width: 50%;
+  }
+  .col-lg-7 {
+    width: 65%;
+  }
+  .col-lg-4 {
+    width: 34%;
+  }
+  .col-lg-3 {
+    width: 32%;
+  }
+  .col-lg-2 {
+    width: 20%;
+  }
+  .col-lg-offset-4 {
+    margin-left: 34%;
+  }
+  .col-lg-offset-2 {
+    margin-left: 20%;
+  }
+}

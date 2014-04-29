@@ -1,0 +1,117 @@
+/**
+*
+* @author		ganesh_119at09 (Sridharan Team)
+* @copyright 	Copyright (c) 2012 {@link http://www.agriya.com Agriya Infoway}
+* @license 		http://www.agriya.com Agriya Infoway Licence
+* @version 		SVN: $Id: embed_fonts.css ganesh_119at09 $
+* @since 		2013-10-09
+*/
+
+@font-face {
+    font-family: 'museo_sans_100regular';
+    src: url('../fonts/museosans-100-webfont.eot');
+    src: url('../fonts/museosans-100-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/museosans-100-webfont.woff') format('woff'),
+         url('../fonts/museosans-100-webfont.ttf') format('truetype'),
+         url('../fonts/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'museo_sans_300regular';
+    src: url('../fonts/museosans-300-webfont.eot');
+    src: url('../fonts/museosans-300-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/museosans-300-webfont.woff') format('woff'),
+         url('../fonts/museosans-300-webfont.ttf') format('truetype'),
+         url('../fonts/museosans-300-webfont.svg#museo_sans_300regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'museo_sans_500regular';
+    src: url('../fonts/museosans_500-webfont.eot');
+    src: url('../fonts/museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/museosans_500-webfont.woff') format('woff'),
+         url('../fonts/museosans_500-webfont.ttf') format('truetype'),
+         url('../fonts/museosans_500-webfont.svg#museo_sans_500regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'museo_sans_700regular';
+    src: url('../fonts/museosans_700-webfont.eot');
+    src: url('../fonts/museosans_700-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/museosans_700-webfont.woff') format('woff'),
+         url('../fonts/museosans_700-webfont.ttf') format('truetype'),
+         url('../fonts/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'museo_slab_500regular';
+    src: url('../fonts/museo_slab_500-webfont.eot');
+    src: url('../fonts/museo_slab_500-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/museo_slab_500-webfont.woff') format('woff'),
+         url('../fonts/museo_slab_500-webfont.ttf') format('truetype'),
+         url('../fonts/museo_slab_500-webfont.svg#museo_slab_500regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/opensans-regular-webfont.eot');
+    src: url('../fonts/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/opensans-regular-webfont.woff') format('woff'),
+         url('../fonts/opensans-regular-webfont.ttf') format('truetype'),
+         url('../fonts/opensans-regular-webfont.svg#open_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BOOKOSI';
+    src: url('../fonts/BOOKOSI.eot');
+    src: url('../fonts/BOOKOSI.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/BOOKOSI.woff') format('woff'),
+         url('../fonts/BOOKOSI.ttf') format('truetype'),
+         url('../fonts/BOOKOSI.svg#BOOKOSI') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueCondensedBlack';
+    src: url('../fonts/HelveticaNeueCondensedBlack.ttf');
+    src: url('../fonts/HelveticaNeueCondensedBlack.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/HelveticaNeueCondensedBlack.woff') format('woff'),
+         url('../fonts/HelveticaNeueCondensedBlack.ttf') format('truetype'),
+         url('../fonts/HelveticaNeueCondensedBlack.svg#HelveticaNeueCondensedBlack') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'WebRupee';
+    src: url('../fonts/webrupee.v2.0.eot');
+    src: url('../fonts/webrupee.v2.0.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/webrupee.v2.0.woff') format('woff'),
+         url('../fonts/webrupee.v2.0.ttf') format('truetype'),
+         url('../fonts/webrupee.v2.0.svg#WebRupee') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.clsWebRupe {
+	font-family:'WebRupee' !important;
+	font-style:inherit;
+	font-weight:inherit;
+	font-size:inherit;
+	color:inherit;
+	display:inline;
+	background:none;
+}

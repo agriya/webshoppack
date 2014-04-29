@@ -1,0 +1,453 @@
+/**
+*
+* @author		ganesh_119at09 (Sridharan Team)
+* @copyright 	Copyright (c) 2012 {@link http://www.agriya.com Agriya Infoway}
+* @license 		http://www.agriya.com Agriya Infoway Licence
+* @version 		SVN: $Id: admin.css ganesh_119at09 $
+* @since 		2013-10-09
+*/
+
+/** -- Table of Contents:
+=========================
+ 1.0  - Layout
+ 2.0  - Header
+ 3.0  - Common
+ 4.0  - SearchBar
+ 5.0  - Config Manage
+ 6.0  - Date Picker
+ 7.0  - Member
+ 8.0  - Dialog Box
+ 9.0  - Upload image
+ 10.0 - Footer
+ 11.0 - Popup
+ 12.0 - Responsive code
+==========================*/
+
+
+/*-- 1.0 - Layout
+================================= --*/
+body {
+	background-color:#fff;
+}
+
+a, a:focus {
+  color:#1386bf;
+  outline:none;
+  cursor:pointer;
+  text-decoration:none; 
+}
+
+a:hover {
+  text-decoration:none;
+  color:#000; 
+}
+
+.page-content {
+	margin-bottom:45px;
+}
+
+/*-- 2.0 - Header
+================================= --*/
+.logo h1 {
+	margin:0;
+}
+
+.logo h1 a.navbar-brand {
+	padding:9px 0;
+}
+
+.nav-list > li.active > a, 
+.nav-list > li.active > a:hover, 
+.nav-list > li.active > a:focus {
+	font-size:12px;
+}
+
+.nav-list > li > a > [class*="icon-"]:first-child {
+	margin-right:0;
+	min-width:25px;
+}
+
+.navbar {
+	background:#1f3450;
+}
+
+/*-- 3.0 - Common
+================================= --*/
+.border-type1 {
+    background:#f9f9f9;
+    border-bottom:1px solid #ececec;
+    box-shadow:0 1px 1px #f8f8f8;
+    margin-bottom:30px;
+	padding:20px;
+}
+
+.border-type2 {
+	background:#f9f9f9;
+	border-top:1px solid #ddd;
+	border-bottom:1px solid #ddd;
+	padding:8px;
+}
+
+.message-navbar h1.admin-title {
+	font-size:22px;
+	margin:0;
+}
+
+.form-request h1 small {
+	font-size:16px;
+	color:#666;
+}
+
+.search-bar label,
+.search-bar .col-sm-8,
+.popup-container label,
+.popup-container .col-sm-9 {
+	padding-left:0;
+}
+
+label.error {
+	clear:both;
+}
+
+.ace-settings-container,
+.breadcrumbs-fixed .ace-settings-container {
+	top:46px;
+}
+
+.breadcrumbs-fixed .ace-settings-container  {
+	z-index:9999;
+}
+
+/*-- 4.0 - SearchBar
+================================= --*/
+.admin-searchbar {
+	margin-bottom:20px;
+}
+
+.admin-searchbar .widget-toolbar {
+	float:none;
+}
+
+.admin-searchbar .widget-toolbar:before {
+	border:none;
+}
+
+.admin-searchbar .widget-toolbar span {
+	font-size:18px;
+	color:#4383b4;
+	line-height:36px;
+	font-weight:lighter;
+}
+
+.admin-searchbar a {
+	display:block;
+}
+
+.admin-searchbar .widget-toolbar i {
+	border-left:1px solid #d9d9d9;
+	line-height:32px;
+	margin-top:3px;
+	padding:0 10px;
+	float:right;
+}
+
+/*-- 5.0 - Config Manage
+================================= --*/
+.admin-tabsview,
+.admin-tabsview ul.list-unstyled {
+	border:none;
+	margin-bottom:0;
+}
+
+.admin-tabsview ul {
+	background:none;
+	border-radius:0;
+	border:none;
+	border-bottom:1px solid #dce8f1;
+}
+
+.admin-tabsview.ui-tabs .ui-tabs-nav li.ui-tabs-active > a {
+	box-shadow:none;
+}
+
+.admin-tabsview .ui-state-default {
+	background:none;
+	border:none;
+}
+
+.admin-tabsview.ui-tabs .ui-tabs-panel {
+	padding:1em 0;
+}
+
+.admin-tabsview.ui-tabs.ui-widget {
+    font-family: 'Open Sans';
+}
+
+.admin-tabsview .form-horizontal .control-label {
+	max-width:350px;
+	word-wrap:break-word;
+}
+
+.admin-tabsview .form-horizontal .controls {
+	margin-left:350px;
+}
+
+.config-input input {
+	font-weight:bold;
+	height:40px;
+}
+
+/*-- 6.0 - Date Picker
+================================= --*/
+.admin-datepick input,
+.admin-datepick label,
+.admin-datepick .input-group-addon {
+	float:left;
+}
+
+.admin-datepick  input {
+	max-width:87px;
+	height:31px;
+}
+
+.admin-datepick .col-sm-8 .control-label {
+	line-height:28px;
+	padding:0 5px 0 12px;
+}
+
+.admin-datepick .input-group-addon {
+	padding:0 8px;
+	border-radius:0;
+	line-height:28px;
+	height:31px;
+	width:auto;
+}
+
+/*-- 7.0 - Member
+================================= --*/
+.user-details dt,
+.user-details dd {
+	margin-bottom:8px;
+}
+
+.user-details dt {
+	font-weight:normal;
+	text-align:left;
+	color:#999;
+}
+
+.user-profile h2 {
+	font-size:18px;
+	color:#383838;
+}
+
+.id-width25 {
+	width:25px;
+}
+
+/*-- 8.0 - Dialog Box
+================================= --*/
+.ui-dialog .ui-dialog-titlebar {
+	background: #eee;
+	border: none;
+	border-bottom: 1px solid #e5e5e5;
+	border-radius: 0;
+	padding: 17px;
+	margin: 0 0 15px 0;
+}
+
+.ui-dialog .ui-dialog-title, .popup-title h2 {
+	font: bold 16px/18px Arial, Helvetica, sans-serif;
+	color: #333;
+	margin: 0 18px 0 0;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+	margin-top:-10px;
+	border:none;
+}
+
+.ui-dialog .ui-dialog-titlebar-close:hover {
+	background:none;
+}
+
+.confirm-delete {
+	font-size: 13px;
+	min-height: 70px !important;
+}
+
+/*-- 9.0 - Upload image
+================================= --*/
+.upload-img {
+	background: #fff;
+	border:1px solid #ccc;
+	padding:3px;
+	position:relative;
+	cursor:pointer;
+	text-align:center;
+	line-height:40px;
+	float:left;
+}
+
+.upload-img:hover {
+	border:1px solid #feabab;
+	box-shadow:0 0 5px #feabab;
+}
+
+.upload-img img {
+	max-height:62px;
+	max-width:62px;
+}
+
+/*-- 10.0 - Footer
+================================= --*/
+.footer {
+	background:#1f3450;
+	width:100%; 
+	color:#fff; 
+	position:absolute; 
+	bottom:0; 
+	text-align:center; 
+	padding:5px 0;
+}
+
+/*-- 11.0 - Popup
+================================= --*/
+.popup-title {
+	background:#eee;
+	padding:17px;
+	margin:0 0 15px 0;
+	border-bottom:1px solid #e5e5e5;
+}
+
+.popup-title h2 {
+	font-size:20px;
+	margin:0 18px 0 0;
+}
+
+.popup-container {
+	background:#fff;
+	overflow:hidden;
+}
+
+.popup-container form {
+	margin-bottom:0;
+}
+
+.popup-oflow {
+	padding:0 17px 0 17px;
+	max-height:372px;
+	overflow:auto;
+}
+
+.popup-oflow .border-type1 dl {
+	margin-bottom:0;
+}
+
+.fancybox-title-float-wrap .child {
+	display:none;
+}
+
+.popup-container .table {
+	font-size:13px;
+}
+
+/*-- 12.0 - Responsive code
+================================= --*/
+@media (max-width: 1024px) {
+.gsm-span1 {
+	width:100px;
+}
+
+.gsm-span2 {
+	width:150px;
+}
+
+.gsm-span3 {
+	width:200px;
+}
+
+.gsm-span4 {
+	width:250px;
+}
+
+.overflw-auto {
+	overflow:auto;
+}
+}
+
+@media (min-width: 820px) and (max-width: 1024px) {
+.col-sm-6 {
+	width:100%;
+}
+
+.col-sm-offset-2 {
+	margin-left:33.5%;
+}
+
+.form-group .col-sm-2 {
+	width:33.5%;
+}
+
+.sub-pay-det .form-group .col-sm-3 {
+	width:30%;
+}
+
+.sub-pay-det .form-group .col-sm-offset-3 {
+	margin-left:30%;
+}
+
+.form-group .col-sm-3,
+.acc-label .col-sm-4 {
+	width:45%;
+}
+
+.col-sm-5 {
+	width:55%;
+}
+
+.form-group select.col-sm-3,
+.user-profile .col-sm-6:last-of-type {
+	width:25%;
+}
+
+.user-profile .col-sm-6:first-of-type {
+	width:75%;
+}
+}
+
+@media (max-width: 767px) {
+.col-sm-2,
+.col-sm-3,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.user-details dt {
+	float:left;
+}
+
+.col-sm-2,
+.col-sm-3 {
+	width:30%;
+}
+
+.col-sm-5,
+.col-sm-6 {
+	width:45%;
+}
+
+.col-sm-7,
+.col-sm-8 {
+	width:65%;
+}
+
+.col-sm-offset-2,
+.col-sm-offset-3 {
+	margin-left:30%;
+}
+
+.user-details dd {
+	margin-left:150px;
+}
+}

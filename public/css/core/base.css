@@ -1,0 +1,156 @@
+/**
+*
+* @author		ganesh_119at09 (Sridharan Team)
+* @copyright 	Copyright (c) 2012 {@link http://www.agriya.com Agriya Infoway}
+* @license 		http://www.agriya.com Agriya Infoway Licence
+* @version 		SVN: $Id: base.css ganesh_119at09 $
+* @since 		2013-10-09
+*/
+
+
+/** -- Table of Contents:
+=========================
+ 1.0 - Reset
+ 2.0 - Header
+ 3.0 - Index
+ 4.0 - Footer
+ 5.0 - Error Page
+==========================*/
+
+
+/*-- 1.0 - Reset
+==========================*/
+body, html {
+    height:100%;
+}
+
+body {
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:14px;
+  color:#383838;
+}
+
+.article-container {
+    height:auto;
+    margin:0 auto;
+    min-height:100%;
+    position:relative;
+}
+
+section.container {
+	padding-bottom:66px;
+}
+
+a, a:focus {
+  color:#1386bf;
+  outline:none;
+  cursor:pointer;
+  text-decoration:none; 
+}
+
+a:hover {
+  text-decoration:none;
+  color:#000; 
+}
+
+img {
+	max-width:100%;
+}
+
+/*-- 2.0 - Header
+==========================*/
+header.navbar {
+	background-color:#1f3450;
+	border-radius:0;
+}
+
+h1.navbar-brand {
+	margin:0;
+	height:auto;
+}
+
+h1.navbar-brand a {
+	font-size:28px;
+	display:block;
+}
+
+ul.navbar-nav {
+	margin:14px 0 0;
+}
+
+ul.navbar-nav > li {
+	margin:0 5px 10px;
+}
+
+.navbar-nav > li > a {
+	background-color:#495c74;
+	padding:7px 15px;
+	border-radius:3px;
+	color:#fff;
+}
+
+.navbar-nav > li > a:hover,
+.navbar-nav > li > a:focus {
+	background:#38639e;
+}
+
+/*-- 3.0 - Index
+==========================*/
+.banner {
+	margin:40px 0;
+	text-align:center;
+	font-size:60px;
+}
+
+/*-- 4.0 - Footer
+==========================*/
+.footer {
+	background-color:#1f3450;
+	margin:40px 0 0;
+	padding:10px 0;
+	position:absolute;
+	bottom:0;
+	width:100%;
+	color:#8e959c;
+}
+
+/*-- 5.0 - Error Page
+==========================*/
+.issues-404 {
+	background-color:#f3f3f3;
+	text-align:center;
+	margin:5% auto 0;
+	max-width:735px;
+	height:auto;
+}
+
+.issues-404 img {
+	width:auto\9;
+	height:auto;
+	max-width:100%;
+	vertical-align:middle;
+	border:0;
+	-ms-interpolation-mode:bicubic;
+}
+
+.issues-404 h2 {
+	font:bold 24px Arial, Helvetica, sans-serif;
+	margin:0;
+	color:#122631;
+}
+
+.issues-404 span {
+	font-size:28px;
+	color:#5584c3;
+}
+
+.issues-404 p {
+	font:normal 14px/22px Arial, Helvetica, sans-serif;
+	text-shadow:1px 1px 1px #eee;
+	margin:25px 0;
+	color:#122631;
+}
+
+.issues-404 p a:hover {
+	text-decoration:underline;
+}

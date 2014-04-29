@@ -1,0 +1,46 @@
+How to create package migration
+===============================
+1. Go to project dir
+2. Run => php artisan migrate:make create_[table_name]_table --bench="agriya/webshoppack"
+3. Now migration table created in package migration folder eg: laravelpackage\workbench\agriya\webshoppack\src\migrations
+4. Add table schema
+5. Run php artisan migrate --bench="agriya/webshoppack"
+Note:
+	To run migrations for a finished package that was installed via Composer into the vendor directory, you may use the --package directive:
+	Running Migrations For An Installed Package
+
+	php artisan migrate --package="agriya/webshoppack"
+
+How to create package seeder
+============================
+1. Create "seeds" folder in package /src/
+2. Create table seeder class files in /src/seeds/
+3. Add reqired coding
+3. Go to project dir
+	Eg: Run command=> php artisan db:seed --class="Agriya\Webshoppack\[class_name]"
+
+
+How to create package configuration
+===================================
+For workbench package
+---------------------
+php artisan config:publish --path="workbench/agriya/webshoppack/src/config/" agriya/webshoppack
+
+
+For published package
+---------------------
+php artisan config:publish agriya/webshoppack
+
+
+How to publish package assets
+=============================
+For workbench package
+---------------------
+php artisan asset:publish --bench=agriya/webshoppack
+
+For published asset
+---------------------
+php artisan asset:publish agriya/webshoppack
+
+Refer:
+http://laravel-recipes.com/recipes/279

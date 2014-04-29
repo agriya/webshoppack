@@ -1,0 +1,20 @@
+/**
+*
+* @author		ganesh_119at09 (Sridharan Team)
+* @copyright 	Copyright (c) 2012 {@link http://www.agriya.com Agriya Infoway}
+* @license 		http://www.agriya.com Agriya Infoway Licence
+* @version 		SVN: $Id: ie.css ganesh_119at09 $
+* @since 		2013-10-09
+*/
+
+.navbar-nav > li > a {
+	padding:7px 15px !important;
+}
+
+.form-horizontal .control-label {
+	text-align:left !important;
+}
+
+input[type="file"] {
+	height:28px;
+}

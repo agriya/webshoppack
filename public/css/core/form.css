@@ -1,0 +1,133 @@
+/**
+*
+* @author		ganesh_119at09 (Sridharan Team)
+* @copyright 	Copyright (c) 2012 {@link http://www.agriya.com Agriya Infoway}
+* @license 		http://www.agriya.com Agriya Infoway Licence
+* @version 		SVN: $Id: form.css ganesh_119at09 $
+* @since 		2013-10-09
+*/
+
+
+/*-- General Codes
+==========================*/
+.mt5  {	margin-top:5px;  }
+.mt10 {	margin-top:10px; }
+.mt20 {	margin-top:20px; }
+.mt30 {	margin-top:30px; }
+.mt40 {	margin-top:40px; }
+
+.mr5  {	margin-right:5px;  }
+.mr10 {	margin-right:10px; }
+.mr20 {	margin-right:20px; }
+.mr30 {	margin-right:30px; }
+.mr40 {	margin-right:40px; }
+
+.mb5  {	margin-bottom:5px;  }
+.mb10 {	margin-bottom:10px; }
+.mb20 {	margin-bottom:20px; }
+.mb30 {	margin-bottom:30px; }
+.mb40 {	margin-bottom:40px; }
+
+.ml5 {	margin-left:5px;  }
+.ml10 {	margin-left:10px; }
+.ml20 {	margin-left:20px; }
+.ml30 {	margin-left:30px; }
+.ml40 {	margin-left:40px; }
+
+.font11 { font-size:11px; }
+
+.loading {
+	position:fixed;
+	width:100%;
+	height:100%;
+	text-align:center;
+	color:#fff;
+	left:0;
+	z-index:99999;
+}
+	
+.loading-cont {
+	height:45px;
+	left:50%;
+	margin-left:-114px;
+	margin-top:-23px;
+	position:fixed;
+	top:50%;
+	width:228px;
+}
+
+textarea {
+	resize:vertical;
+}
+
+label {
+	font-weight:normal;
+	margin-bottom:5px !important;
+}
+
+label.error {
+	color:#b94a48;
+	display:block;
+}
+
+.alert {
+	padding:10px 15px;
+}
+
+table .alert {
+	margin:0;
+}
+
+.separator { 
+	font-size:12px;
+	color:#9a9a9a;
+	padding:0 3px;
+}
+
+.form-horizontal .control-label {
+	text-align:left;
+}
+
+.required-icon:after {
+	content:"*";
+	color:#da6461;
+	margin-left:3px;
+}
+
+.text-bold { 
+	font-weight:bold; 
+}
+
+.form-control.error,
+.form-control.error,
+.form-control.error {
+	border-color:#da6461;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	 -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+		  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+		  margin-right:5px;
+}
+
+.form-control.error:focus,
+.form-control.error:focus,
+.form-control.error:focus {
+    border-color:#da6461;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+	 -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+		  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+}
+
+.title-one {
+	border-bottom:1px solid #e2e2e2;
+	padding-bottom:15px;
+	margin-bottom:30px;
+	font-size:28px;
+	color:#7f7f7f;
+}
+
+.title-two {
+	font:normal 20px 'museo_sans_300regular', Arial, Helvetica, sans-serif;
+	border-bottom:1px solid #eee;
+	margin:0 0 20px;
+	padding-bottom:8px;
+}
