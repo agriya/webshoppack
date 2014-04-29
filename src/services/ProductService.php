@@ -1749,6 +1749,28 @@ class ProductService
 		}
 		return '';
 	}
+	public function getAdminProductViewURL($p_id, $p_details = array())
+	{
+		$url_slug = '';
+		if(isset($p_details['product_code']) && isset($p_details['url_slug']))
+		{
+			$url_slug = $p_details['product_code']. '-'.$p_details['url_slug'];
+		}
+		else
+		{
+			$p_details = Product::where('id', $p_id)->first(array('product_code', 'url_slug'));
+			if(count($p_details) > 0)
+			{
+				$url_slug = $p_details['product_code']. '-'.$p_details['url_slug'];
+			}
+		}
+		if($url_slug != '')
+		{
+			$view_url = \URL::to(\Config::get('webshoppack::admin_uri').'/view/'.$url_slug);
+			return $view_url;
+		}
+		return '';
+	}
 
 	public function checkIsShopNameExist()
 	{

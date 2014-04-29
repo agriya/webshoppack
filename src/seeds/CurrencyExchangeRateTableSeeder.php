@@ -19,9 +19,8 @@ class CurrencyExchangeRateTableSeeder extends Seeder {
 		while (($data = fgetcsv($handle, 0, "\t", '"')) !== FALSE)
 	    {
 	        foreach($data as $key=>$value) {
-	            $data[$key] = $value;
+	            $data[$key] = str_replace("'", "", $value);
 	        }
-	        $data = str_replace("'", "", $data);
 	        $currency_list[] = implode(",", $data);
 		}
 
@@ -32,15 +31,15 @@ class CurrencyExchangeRateTableSeeder extends Seeder {
 				$currency_str =  explode(",", $currency_val);
 				if(count($currency_str) > 0)
 				{
-					$basicdata['country'] = $currency_str[0];
-					$basicdata['country_code'] = $currency_str[1];
-					$basicdata['currency_code'] = $currency_str[2];
-					$basicdata['currency_symbol'] = $currency_str[3];
-					$basicdata['currency_name'] = $currency_str[4];
-					$basicdata['exchange_rate'] = $currency_str[5];
-					$basicdata['status'] = $currency_str[6];
-					$basicdata['paypal_supported'] = $currency_str[7];
-					$basicdata['display_currency'] = $currency_str[8];
+					$basicdata['country'] = trim($currency_str[0]);
+					$basicdata['country_code'] = trim($currency_str[1]);
+					$basicdata['currency_code'] = trim($currency_str[2]);
+					$basicdata['currency_symbol'] = trim($currency_str[3]);
+					$basicdata['currency_name'] = trim($currency_str[4]);
+					$basicdata['exchange_rate'] = trim($currency_str[5]);
+					$basicdata['status'] = trim($currency_str[6]);
+					$basicdata['paypal_supported'] = trim($currency_str[7]);
+					$basicdata['display_currency'] = trim($currency_str[8]);
 					\DB::table('currency_exchange_rate')->insert($basicdata);
 				}
 			}

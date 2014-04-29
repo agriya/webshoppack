@@ -36,6 +36,7 @@
         <link rel="stylesheet" href="{{ URL::asset('packages/agriya/webshoppack/css/core/embed_fonts.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('packages/agriya/webshoppack/css/core/form.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('packages/agriya/webshoppack/css/core/admin.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('packages/agriya/webshoppack/js/lib/jcarousel-0.3.0/css/jcarousel.connected-carousels.css') }}" />
         <!--<link rel="stylesheet" href="{{ URL::asset('packages/agriya/webshoppack/css/jQuery_plugins/smoothness/jquery-ui.css') }}">-->
 
         <!--[if lte IE 9]>

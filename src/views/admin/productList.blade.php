@@ -117,19 +117,18 @@
                     <tbody>
                     	@if(count($products_arr) > 0)
                     		<?php
-                    			//$p_service = new ProductService();
+                    			$p_service = new Agriya\Webshoppack\ProductService();
                     		?>
                     		@foreach($products_arr as $key => $prd)
                     			<tr>
 									<?php
-	                    				//$product_view_url = $p_service->getProductViewURL($prd->id, $prd);
-	                    				$product_view_url = '#';
+	                    				$product_view_url = $p_service->getAdminProductViewURL($prd->id, $prd);
 										$user_details = Agriya\Webshoppack\CUtil::getUserDetails($prd->product_user_id);
 	                    				$category_arr = $service_obj->getProductCategoryArr($prd->product_category_id);
 	                    			?>
-									<td>{{ HTML::link('#', $prd->product_code, array('target' => '_blank')) }}</td>
+									<td>{{ HTML::link($product_view_url, $prd->product_code, array('target' => '_blank')) }}</td>
 									<td>
-										<p>{{ HTML::link('#', $prd->product_name, array('target' => '_blank')) }}</p>
+										<p>{{ HTML::link($product_view_url, $prd->product_name, array('target' => '_blank')) }}</p>
 										<p class="text-muted"> {{{ implode(' / ', $category_arr) }}} </p>
 									</td>
 									<td>{{ $user_details['display_name'] }}</td>
@@ -229,7 +228,7 @@
 										<!--<div class="action-buttons">-->
                                         	<a href="#" class="btn btn-xs btn-info" title="{{ trans('webshoppack::admin/productList.product_edit') }}">
 											<i class="icon-edit bigger-120"></i></a>
-                                        	<a href="#" class="btn btn-success btn-xs" title="{{ trans('webshoppack::admin/productList.product_view') }}">
+                                        	<a href="{{$product_view_url}}" class="btn btn-success btn-xs" title="{{ trans('webshoppack::admin/productList.product_view') }}">
 											<i class="icon-eye-open bigger-130"></i></a>
                                         	@if($d_arr['allow_to_change_status'])
 	                                        	@if($prd->product_status == 'ToActivate')

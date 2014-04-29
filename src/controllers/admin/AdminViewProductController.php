@@ -1,6 +1,6 @@
 <?php namespace Agriya\Webshoppack;
 //Added by periyasami_145at11
-class ViewProductController extends \BaseController
+class AdminViewProductController extends \BaseController
 {
 	public $shop_items_limit = 3;
 	private $logged_user_id = 0;
@@ -8,7 +8,7 @@ class ViewProductController extends \BaseController
 	function __construct()
 	{
 		$this->ViewProductService = new ViewProductService();
-        $this->logged_user_id = (\Sentry::getUser())? \Sentry::getUser()->id : '';
+        $this->logged_user_id = (\Sentry::getUser())? \Sentry::getUser()->user_id : '';
         //$this->beforeFilter('auth', array('except' => array('getIndex', 'getDemo', 'getProductComments')));
     }
 
@@ -19,7 +19,7 @@ class ViewProductController extends \BaseController
 		$preview_mode = false;
 		$product_code = $this->ViewProductService->getProductCode($slug_url);
 		//echo "product_code: ".$product_code;exit;
-		$p_details = Product::whereRaw('product_code = ? AND product_status != ?', array($product_code, 'Deleted'))->first();
+		$p_details = Product::whereRaw('product_code = ?', array($product_code))->first();
 		$product_service_details = array();
 		$logged_user_id = (\Sentry::getUser())? \Sentry::getUser()->user_id : '';
 		if(count($p_details) > 0)
@@ -28,18 +28,19 @@ class ViewProductController extends \BaseController
 
 			//echo "<pre>";print_r($product_service_details);echo "</pre>";
 			$this->ViewProductService->product_user_id = $p_details['product_user_id'];
-			//echo $this->logged_user_id." == ".$p_details['product_user_id']." == ".\Sentry::getUser()->id;
 			if($p_details['product_status'] != 'Ok')
 			{
-				if($this->logged_user_id == $p_details['product_user_id'])
+				if($p_details['product_status'] = 'Deleted')
 				{
-					$alert_msg = trans("webshoppack::viewProduct.draft_or_not_approval");
+					$alert_msg = trans('webshoppack::viewProduct.product_deleted_alert');
 					$preview_mode = true;
 				}
 				else
 				{
-					$error_msg = trans("webshoppack::viewProduct.invalid_url_slug");
+					$alert_msg = trans('webshoppack::viewProduct.draft_or_not_approval');
+					$preview_mode = true;
 				}
+
 			}
 			if($error_msg == '')
 			{
@@ -114,7 +115,7 @@ class ViewProductController extends \BaseController
 		}
 		else
 		{
-			$error_msg = trans("webshoppack::viewProduct.invalid_url_slug");
+			$error_msg = trans('webshoppack::viewProduct.invalid_url_slug');
 		}
 
 		$d_arr['error_msg'] = $error_msg;
@@ -123,7 +124,7 @@ class ViewProductController extends \BaseController
 
 		//$mpListProductService = new MpListProductService();
 		//$disp_category = $mpListProductService->fetchDisplayCategorys();
-		return \View::make(\Config::get('webshoppack::view_product'), compact('d_arr', 'product_code', 'breadcrumb_arr', 'product_title', 'preview_mode', 'p_details', 'service_obj'));
+		return \View::make('webshoppack::admin.viewProduct', compact('d_arr', 'product_code', 'breadcrumb_arr', 'product_title', 'preview_mode', 'p_details', 'service_obj'));
     }
 
 	public function addReplyComment()
@@ -171,7 +172,7 @@ class ViewProductController extends \BaseController
 								MpProductComments::where('id', $thread_id)->update(array("last_replied_user_id" => $logged_user_id, "last_updated" => $date_now,
 															 'total_replies' => (int)$reply_count + 1));
 							}
-							$success_message =  trans("webshoppack::viewProduct.reply_message_added_success");
+							$success_message =  trans('webshoppack::viewProduct.reply_message_added_success');
 						    $key = "NewReply";
 						}
 						else
@@ -187,7 +188,7 @@ class ViewProductController extends \BaseController
 				                            'is_deleted' => 0);
 							$message_comments = new MpProductComments();
 							$thread_id = $message_comments->insertGetId($mesage_data);
-							$success_message =  trans("webshoppack::viewProduct.comment_added_success");
+							$success_message =  trans('webshoppack::viewProduct.comment_added_success');
 							$key = "NewComment";
 						}
 						// Send user notification mail details for admin and Thread owner / Purchased user
@@ -198,12 +199,13 @@ class ViewProductController extends \BaseController
 				}
 				else
 				{
-					$error_message = trans("webshoppack::viewProduct.invalid_url_slug");
+					$error_message = trans('webshoppack::viewProduct.invalid_url_slug');
 				}
 			}
 			else
 			{
-				$error_message = trans("webshoppack::viewProduct.invalid_url_slug");
+				$error_message = trans('webshoppack::viewProduct.invalid_url_slug');
+				$error_message = trans('webshoppack::viewProduct.invalid_url_slug');
 			}
 		}
 		return Redirect::to($url)->with('success_message', $success_message)->with('error_message', $error_message);
@@ -367,7 +369,7 @@ class ViewProductController extends \BaseController
 		$action = 'add';
 		$discussion_id = (Session::has('discussion_id'))? Session::get('discussion_id') : 0;
 		$d_arr = $breadcrumb_arr = array();
-		$page_title = trans("webshoppack::viewProduct.page_title");
+		$page_title = trans('webshoppack::viewProduct.page_title');
 		$reply = 0;
 		if(Input::has('id'))
 		{
@@ -375,14 +377,14 @@ class ViewProductController extends \BaseController
 			$reply = $this->ViewProductService->chkIsProductReply($discussion_id);
 			if(!$reply)
 			{
-				$error_msg = trans("webshoppack::viewProduct.invalid_url_slug");
+				$error_msg = "mp_product/viewProduct.invalid_url_slug";
 			}
 		}
 		else
 		{
 			if($this->logged_user_id == $p_details['product_user_id'])
 			{
-				$error_msg = trans("webshoppack::viewProduct.own_product_add_query");
+				$error_msg = "mp_product/viewProduct.own_product_add_query";
 			}
 		}
 
@@ -415,7 +417,7 @@ class ViewProductController extends \BaseController
     	$alert_msg = $error_msg = '';
     	$action = 'view';
 		$d_arr = $breadcrumb_arr = array();
-		$page_title = trans("webshoppack::viewProduct.page_title");
+		$page_title = trans('webshoppack::viewProduct.page_title');
 
 
 		$item_url = $this->ViewProductService->getProductViewURL($p_details['id'], $p_details);
@@ -446,7 +448,7 @@ class ViewProductController extends \BaseController
 			{
 				if(isset($discussion_details['is_private']) && $discussion_details['is_private'] == 1)
 				{
-					$error_msg = trans("webshoppack::viewProduct.private_question_already_marked_as_private_msg");
+					$error_msg = trans('webshoppack::viewProduct.private_question_already_marked_as_private_msg');
 				}
 				else
 				{
@@ -457,7 +459,7 @@ class ViewProductController extends \BaseController
 			{
 				if(isset($discussion_details['is_private']) && $discussion_details['is_private'] == 0)
 				{
-					$error_msg = trans("webshoppack::viewProduct.private_question_already_unmarked_from_private_msg");
+					$error_msg = trans('webshoppack::viewProduct.private_question_already_unmarked_from_private_msg');
 				}
 				else
 				{
@@ -466,7 +468,7 @@ class ViewProductController extends \BaseController
 			}
 			else
 			{
-				$error_msg = trans("webshoppack::viewProduct.private_question_invalid_action");
+				$error_msg = trans('webshoppack::viewProduct.private_question_invalid_action');
 			}
 			$d_arr['p_id'] = $discussion_details['item_id'];
 		}

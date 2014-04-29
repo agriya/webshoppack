@@ -104,5 +104,6 @@ return array(
 	'reply_message_added_success' => 'Reply added successfully.',
 	'comment_added_success' => 'Reply added successfully.',
 	'message_visibility' => 'Post as private message for',
-	'buy_now' => 'Buy Now'
+	'buy_now' => 'Buy Now',
+	'product_deleted_alert' => 'This product have been deleted'
 );
