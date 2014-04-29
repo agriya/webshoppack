@@ -57,4 +57,6 @@ return array(
 	'uploader_confirm_delete' => 'Are you sure you want to delete?',
 	'uploader_image_label' => 'Uploaded image',
 	'uploader_invalid_img_err_msg' => 'Invalid Image',
+	'all' => 'All',
+	'edit' => 'Edit',
 );

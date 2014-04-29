@@ -194,6 +194,19 @@ return array(
 },
 
 /**
+ * is user Logged
+ *
+ * @type boolean
+ */
+'is_logged_in'=> function()
+{
+	if(Sentry::check()) {
+		return true;
+	}
+	return false;
+},
+
+/**
  * The login path is the path where the user if they fail a permission check
  *
  * @type string
@@ -266,5 +279,6 @@ return array(
 'user_image_large_width' => 140,
 'user_image_large_height' => 140,
 'currency_seeder_file' => 'packages/agriya/webshoppack/files/currency.txt',
+'shop_product_per_page_list' => '10',
 );
 ?>

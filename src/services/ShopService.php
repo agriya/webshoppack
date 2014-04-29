@@ -1,5 +1,5 @@
 <?php namespace Agriya\Webshoppack;
-use Input,Image;
+use Input,Image,URL,Config;
 class ShopService
 {
 	public function getPaymentAnalyticsDetails()
@@ -79,19 +79,31 @@ class ShopService
 	{
 		$user = \Config::get('webshoppack::logged_user_id');
 		$this->logged_user_id = $user();
-		//$data_arr['shop_status'] = $input['shop_status'];
 		$data_arr['is_shop_owner'] = 'Yes';
-		UsersShopDetails::whereRaw('user_id = ?', array($this->logged_user_id))->update($data_arr);
+		if($this->isUsersShopDetailsExists()) {
+			UsersShopDetails::whereRaw('user_id = ?', array($this->logged_user_id))->update($data_arr);
+		}
+		else {
+			$data_arr['user_id'] = $this->logged_user_id;
+			$usr_shop_details = new UsersShopDetails;
+			$usr_shop_details->insert($data_arr);
+		}
 	}
 
 	public function updateShopPaypal($input)
 	{
 		$user = \Config::get('webshoppack::logged_user_id');
 		$logged_user_id = $user();
-		//echo "<pre>";print_r($input);echo "</pre>";
-		//$data_arr['shop_status'] = $input['shop_status'];
+
 		$data_arr['paypal_id'] = $input['paypal_id'];
-		UsersShopDetails::whereRaw('user_id = ?', array($logged_user_id))->update($data_arr);
+		if($this->isUsersShopDetailsExists()) {
+			UsersShopDetails::whereRaw('user_id = ?', array($logged_user_id))->update($data_arr);
+		}
+		else {
+			$data_arr['user_id'] = $logged_user_id;
+			$usr_shop_details = new UsersShopDetails;
+			$usr_shop_details->insert($data_arr);
+		}
 	}
 
 	public function isShopAlreadyAdded()
@@ -99,6 +111,18 @@ class ShopService
 		$user = \Config::get('webshoppack::logged_user_id');
 		$this->logged_user_id = $user();
 		$shop_count = ShopDetails::whereRaw('user_id = ?', array($this->logged_user_id))->count();
+		if($shop_count > 0)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public function isUsersShopDetailsExists()
+	{
+		$user = \Config::get('webshoppack::logged_user_id');
+		$this->logged_user_id = $user();
+		$shop_count = UsersShopDetails::whereRaw('user_id = ?', array($this->logged_user_id))->count();
 		if($shop_count > 0)
 		{
 			return true;
@@ -135,7 +159,7 @@ class ShopService
 			$data_arr['shop_contactinfo'] = $input['shop_contactinfo'];
 			$data_arr['user_id'] = $this->logged_user_id;
 			$shop = new ShopDetails;
-			$shop->addNew($data_arr);
+			$shop->insert($data_arr);
 		}
 		return $already_added;
 	}
@@ -269,7 +293,7 @@ class ShopService
 			unlink($folder_name.$filename."_O.".$ext);
 		}
 	}
-/*
+
 	public static function getShopImage($shop_id, $image_size = "thumb", $shop_image_info = array(), $cache = true)
 	{
 		$image_exists = false;
@@ -277,7 +301,7 @@ class ShopService
 
 		if(count($shop_image_info) == 0)
 		{
-			$shop_image_info = MpShopDetails::whereRaw('id = ? ', array($shop_id))->first();
+			$shop_image_info = ShopDetails::whereRaw('id = ? ', array($shop_id))->first();
 		}
 		if(count($shop_image_info) > 0 && $shop_image_info['image_name'] != '')
 		{
@@ -288,7 +312,7 @@ class ShopService
 			$image_details["image_server_url"] = $shop_image_info['image_server_url'];
 			$image_details["image_thumb_width"] = $shop_image_info['t_width'];
 			$image_details["image_thumb_height"] = $shop_image_info['t_height'];
-			$image_details["image_folder"] = Config::get("shop.shop_image_folder");
+			$image_details["image_folder"] = Config::get("webshoppack::shop_image_folder");
 		}
 
 		$image_path = "";
@@ -296,10 +320,10 @@ class ShopService
 		$image_attr = "";
 		if($image_exists)
 		{
-			$image_path = URL::asset(Config::get("shop.shop_image_folder"))."/";
+			$image_path = URL::asset(Config::get("webshoppack::shop_image_folder"))."/";
 		}
-		$cfg_shop_img_thumb_width = Config::get("shop.shop_image_thumb_width");
-		$cfg_shop_img_thumb_height = Config::get("shop.shop_image_thumb_height");
+		$cfg_shop_img_thumb_width = Config::get("webshoppack::shop_image_thumb_width");
+		$cfg_shop_img_thumb_height = Config::get("webshoppack::shop_image_thumb_height");
 
 		switch($image_size)
 		{
@@ -330,5 +354,5 @@ class ShopService
 		$image_details['image_url'] = $image_url;
 		$image_details['image_attr'] = $image_attr;
 		return $image_details;
-	}*/
+	}
 }

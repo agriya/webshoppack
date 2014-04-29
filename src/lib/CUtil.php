@@ -18,6 +18,7 @@ class CUtil
 		$user_info = \DB::select('SELECT '.$fields.' FROM '.$user_table.' WHERE '.$user_id_field = $user_id);
 		if(count($user_info) > 0) {
 			foreach($user_info AS $user_det) {
+				$user_details['user_code'] = CUtil::setUserCode($user_id);
 				if(isset($user_det->fname)) {
 					$user_details['first_name'] = $user_det->fname;
 				}
@@ -354,6 +355,7 @@ class CUtil
 		}
 		return "";
 	}
+
 	public static function getCookie($cookie_name)
 	{
 		$value = "";
@@ -363,6 +365,7 @@ class CUtil
 		}
 		return $value;
 	}
+
 	public static function getLocatorApiCurrencyCode()
 	{
 		$locatorhq_username = \Config::get("webshoppack::locatorhq_api_username");
@@ -510,4 +513,21 @@ class CUtil
 
 	}
 
+	/**
+	 * CUtil::makeClickableLinks()
+	 * added by manikandan_133at10
+	 *
+	 * @param mixed $text
+	 * @return
+	 */
+	public static function makeClickableLinks($text)
+	{
+		$text = preg_replace('#(script|about|applet|activex|chrome):#is', "\\1:", $text);
+		$ret = ' ' . $text;
+		$ret = preg_replace("#(^|[\n ])([\w]+?://[\w\#$%&~/.\-;:=,?@\[\]+]*)#is", "\\1<a href=\"\\2\" target=\"_blank\">\\2</a>", $ret);
+		$ret = preg_replace("#(^|[\n ])((www|ftp)\.[\w\#$%&~/.\-;:=,?@\[\]+]*)#is", "\\1<a href=\"http://\\2\" target=\"_blank\">\\2</a>", $ret);
+		$ret = preg_replace("#(^|[\n ])([a-z0-9&\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>", $ret);
+		$ret = substr($ret, 1);
+		return $ret;
+	}
 }

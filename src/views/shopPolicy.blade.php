@@ -3,12 +3,12 @@
 @endif
 {{ Form::model($shop_details, ['url' => URL::to(Config::get('webshoppack::shop_uri').'/users/shop-details'),'method' => 'post','id' => 'shoppolicy_frm', 'class' => 'form-horizontal']) }}
 	<?php
-		$shop_name_msg = str_replace('VAR_MIN', Config::get('shop.shopname_min_length'), trans("webshoppack::shopDetails.characters_min_max_msg"));
-		$shop_name_msg = str_replace('VAR_MAX', Config::get('shop.shopname_max_length'), $shop_name_msg);
+		$shop_name_msg = str_replace('VAR_MIN', Config::get('webshoppack::shopname_min_length'), trans("webshoppack::shopDetails.characters_min_max_msg"));
+		$shop_name_msg = str_replace('VAR_MAX', Config::get('webshoppack::shopname_max_length'), $shop_name_msg);
 		$shop_name_label = trans("webshoppack::shopDetails.shop_name")." ".$shop_name_msg;
 
-		$shop_slogan_msg = str_replace('VAR_MIN', Config::get('shop.shopslogan_min_length'), trans("webshoppack::shopDetails.characters_min_max_msg"));
-		$shop_slogan_msg = str_replace('VAR_MAX', Config::get('shop.shopslogan_max_length'), $shop_slogan_msg);
+		$shop_slogan_msg = str_replace('VAR_MIN', Config::get('webshoppack::shopslogan_min_length'), trans("webshoppack::shopDetails.characters_min_max_msg"));
+		$shop_slogan_msg = str_replace('VAR_MAX', Config::get('webshoppack::shopslogan_max_length'), $shop_slogan_msg);
 		$shop_slogan_label = trans("webshoppack::shopDetails.shop_slogan")." ".$shop_slogan_msg;
 	?>
 	{{ Form::hidden('submit_form', "update_policy", array("name" => "submit_form", "id" => "submit_form"))}}

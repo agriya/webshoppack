@@ -1,6 +1,6 @@
 <?php namespace Agriya\Webshoppack;
 
-use View,Input,Validator,Response;
+use View,Input,Validator,Response,URL;
 
 class ShopController extends \BaseController
 {
