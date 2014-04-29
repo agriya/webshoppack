@@ -154,6 +154,18 @@ return array(
 },
 
 /**
+ * The permission option is the highest-level authentication check that lets you define a closure that should return true if the current user
+ * is allowed to view the admin section. Any "falsey" response will send the user back to the 'login_path' defined below.
+ *
+ * @type closure
+ */
+'admin_permission'=> function()
+{
+	return Sentry::getUser()->hasAnyAccess(['system', 'system.Admin']);
+	//return true;
+},
+
+/**
  * The login path is the path where the user if they fail a permission check
  *
  * @type string
@@ -253,5 +265,6 @@ return array(
 'user_image_thumb_height' => 62,
 'user_image_large_width' => 140,
 'user_image_large_height' => 140,
+'currency_seeder_file' => 'packages/agriya/webshoppack/files/currency.txt',
 );
 ?>

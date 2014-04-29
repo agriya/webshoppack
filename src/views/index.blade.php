@@ -33,11 +33,11 @@
 	                                    //$p_img_arr = $list_prod_serviceobj->populateProductDefaultThumbImages($product['id']);
 	                                    //$p_thumb_img = $list_prod_serviceobj->getProductDefaultThumbImage($product['id'], 'thumb', $p_img_arr);
 	                                    //$price = $list_prod_serviceobj->formatProductPrice($product);
-	                                    //$view_url = $list_prod_serviceobj->getProductViewURL($product['id'], $product_details);
+	                                    $view_url = $list_prod_serviceobj->getProductViewURL($product['id'], $product_details);
 	                                ?>
 	                                <div class="pro-listsdetail row">
 	                                    <div class="col-lg-8 plft0">
-	                                        <h2 class="title-six"><a href="#" title="{{{ $product['product_name']  }}}">{{{ $product['product_name'] }}}</a></h2>
+	                                        <h2 class="title-six"><a href="{{$view_url}}" title="{{{ $product['product_name']  }}}">{{{ $product['product_name'] }}}</a></h2>
 	                                        <p class="pro-des">{{ $seller_name }}</p>
 	                                        <p class="pro-des">{{{ $product['product_highlight_text'] }}}</p>
 	                                    </div>

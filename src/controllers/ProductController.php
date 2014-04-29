@@ -12,7 +12,7 @@ class ProductController extends \BaseController {
 		$productService->getCountForProducts();
     	$cat_list = $productService->populateProductCategoryList($cat_id);
     	$q = $productService->buildProductQuery($cat_id);
-    	//$list_prod_serviceobj = $productService;
+    	$list_prod_serviceobj = $productService;
     	//$perPage = Config::get('mp_product.market_place_product_per_page_list');
 		$product_details = $q->paginate('10');
 		$product_total_count = $product_details->getTotal();
@@ -27,7 +27,7 @@ class ProductController extends \BaseController {
 			$subcat = true;
 		}
 
-    	return \View::make(\Config::get('webshoppack::product_list'), compact('cat_list', 'product_details', 'cat_list_arr', 'subcat', 'product_total_count', 'category_name'));
+    	return \View::make(\Config::get('webshoppack::product_list'), compact('cat_list', 'product_details', 'cat_list_arr', 'subcat', 'product_total_count', 'category_name', 'list_prod_serviceobj'));
 	}
 
 	public static function getAdd()

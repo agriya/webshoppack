@@ -32,7 +32,26 @@ Route::filter('validate_login', function ()
 
 Route::filter('validate_admin', function()
 {
-	if (!Sentry::check()) return Redirect::to(Config::get('webshopauthenticate::uri').'/login');
-	if (Sentry::getUser()->hasAnyAccess(['system', 'system.Admin']))
-	return Redirect::to(Config::get('webshopauthenticate::uri').'/login');
+	$permission = Config::get('webshoppack::permission');
+	$response = $permission();
+	if (!$response)
+	{
+		$loginUrl = URL::to(Config::get('webshoppack::login_path', 'webshop'));
+		$redirectKey = Config::get('webshoppack::login_redirect_key', 'redirect');
+		$redirectUri = Request::url();
+
+		return Redirect::guest($loginUrl)->with($redirectKey, $redirectUri);
+	}
+
+	$admin_permission = Config::get('webshoppack::admin_permission');
+	$admin_response = $admin_permission();
+
+	if (!$admin_response)
+	{
+		$loginUrl = URL::to(Config::get('webshoppack::uri', 'webshop'));
+		$redirectKey = Config::get('webshoppack::login_redirect_key', 'redirect');
+		$redirectUri = Request::url();
+
+		return Redirect::guest($loginUrl)->with($redirectKey, $redirectUri);
+	}
 });

@@ -18,6 +18,7 @@
             "src/controllers",
             "src/services",
             "src/models",
+            "src/seeds",
             "src/lib"
         ],
         "psr-0": {

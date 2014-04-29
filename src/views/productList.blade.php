@@ -92,12 +92,12 @@
 						<?php
 								$p_img_arr = $productService->populateProductDefaultThumbImages($product->id);
 								$p_thumb_img = $productService->getProductDefaultThumbImage($product->id, 'thumb', $p_img_arr);
-								//$view_url = $productService->getProductViewURL($product->id, $product_details);
+								$view_url = $productService->getProductViewURL($product->id, $product);
 								//$edit_url = URL::to('products/add?id='.$product->id);
 							?>
 							<td class="store-lists">
 								<figure>
-										<a href="#"><img id="item_thumb_image_id" src="{{$p_thumb_img['image_url']}}" @if(isset($p_thumb_img["thumbnail_width"])) width='{{$p_thumb_img["thumbnail_width"]}}' height='{{$p_thumb_img["thumbnail_height"]}}' @endif title="{{{ nl2br($product['product_name'])  }}}" alt="{{{nl2br($product['product_name'])}}}" /></a>
+										<a href="{{$view_url}}"><img id="item_thumb_image_id" src="{{$p_thumb_img['image_url']}}" @if(isset($p_thumb_img["thumbnail_width"])) width='{{$p_thumb_img["thumbnail_width"]}}' height='{{$p_thumb_img["thumbnail_height"]}}' @endif title="{{{ nl2br($product['product_name'])  }}}" alt="{{{nl2br($product['product_name'])}}}" /></a>
 								</figure>
 								<p class="mt10"><span class="text-muted">{{ \Lang::get('webshoppack::product.product_code') }}:</span> {{ $product['product_code'] }}</p>
 							</td>
@@ -154,7 +154,7 @@
 									<span class="label {{ $lbl_class }}">{{ $display_product_status }}</span>
 								</td>
 								<td>
-									<p><i class="fa fa-eye texticon-link"></i> <a href="{{ Config::get('webshoppack::product_list_view') }}">{{ \Lang::get('webshoppack::product.product_view')  }}</a></p>
+									<p><i class="fa fa-eye texticon-link"></i> <a href="{{ $view_url }}">{{ \Lang::get('webshoppack::product.product_view')  }}</a></p>{{-- Config::get('webshoppack::product_list_view') --}}
 									<p><i class="fa fa-edit text-info"></i> <a href="{{ Config::get('webshoppack::product_list_edit').$product['id'] }}" class="text-info">{{ \Lang::get('webshoppack::product.product_edit')  }}</a></p>
 									<p><i class="fa fa-trash-o text-danger"></i> <a href="javascript:void(0)" onclick="doAction('{{ $product['id'] }}', 'delete')" class=" text-danger">
 									{{ \Lang::get('webshoppack::product.product_delete')  }}</a></p>
