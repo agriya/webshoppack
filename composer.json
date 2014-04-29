@@ -12,6 +12,9 @@
         "illuminate/support": "4.1.*",
         "intervention/image": "dev-master"
     },
+    "suggest": {
+        "agriya/webshopauthenticate": "Basic authentication for Laravel Framework"
+    },
     "autoload": {
         "classmap": [
             "src/migrations",
