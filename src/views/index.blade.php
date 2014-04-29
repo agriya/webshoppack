@@ -27,14 +27,15 @@
 										if(isset($seller_details['display_name']) && $seller_details['display_name'] != "") {
 											$seller_name = $seller_details['display_name'];
 										}
-										//if(!isset($seller_details[$seller_id ] ))
-											//$seller_details[$seller_id]  = CUtil::getUserDetails($seller_id );
 
-	                                    //$p_img_arr = $list_prod_serviceobj->populateProductDefaultThumbImages($product['id']);
-	                                    //$p_thumb_img = $list_prod_serviceobj->getProductDefaultThumbImage($product['id'], 'thumb', $p_img_arr);
-	                                    //$price = $list_prod_serviceobj->formatProductPrice($product);
+	                                    $p_img_arr = $list_prod_serviceobj->populateProductDefaultThumbImages($product['id']);
+	                                    $p_thumb_img = $list_prod_serviceobj->getProductDefaultThumbImage($product['id'], 'thumb', $p_img_arr);
+	                                    $price = $list_prod_serviceobj->formatProductPrice($product);
 	                                    $view_url = $list_prod_serviceobj->getProductViewURL($product['id'], $product_details);
 	                                ?>
+	                                <figure>
+                                    <a href="{{ $view_url }}"><img id="item_thumb_image_id" src="{{$p_thumb_img['image_url']}}" title="{{{ $product['product_name']  }}}" alt="{{{ $product['product_name']  }}}" /></a>
+                                </figure>
 	                                <div class="pro-listsdetail row">
 	                                    <div class="col-lg-8 plft0">
 	                                        <h2 class="title-six"><a href="{{$view_url}}" title="{{{ $product['product_name']  }}}">{{{ $product['product_name'] }}}</a></h2>
@@ -46,7 +47,15 @@
                                                 @if($product['is_free_product'] == 'Yes')
                                                     <sub>{{ Lang::get('webshoppack::common.free') }}</sub>
                                                 @else
-                                                	<sub>{{ $product['product_price_currency'] }} {{ $product['product_price'] }}</sub>
+                                                	@if($price['disp_price'] && $price['disp_discount'])
+                                                        {{ Agriya\Webshoppack\CUtil::getCurrencyBasedAmount($product['product_discount_price'], $product['product_discount_price_usd'], $product['product_price_currency']) }}
+                                                    @elseif($price['disp_price'])
+                                                        @if($product['product_price'] > 0)
+                                                            {{ Agriya\Webshoppack\CUtil::getCurrencyBasedAmount($product['product_price'], $product['product_price_usd'], $product['product_price_currency']) }}
+                                                        @else
+                                                           <sub>{{ Lang::get('webshoppack::common.free') }}</sub>
+                                                        @endif
+                                                    @endif
                                                 @endif
                                             </p>
 	                                    </div>

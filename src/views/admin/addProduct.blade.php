@@ -797,6 +797,9 @@
 	</div>
 @stop
 @section('script_content')
+	@if($d_arr['p'] == 'basic')
+		<script src="{{ URL::asset('packages/agriya/webshoppack/js/lib/jquery.inputlimiter.js') }}"></script>
+	@endif
 	@if($d_arr['p'] == 'preview_files')
 		<script src="{{ URL::asset('packages/agriya/webshoppack/js/lib/jQuery_plugins/jquery.tablednd_0_5.js') }}"></script>
 	@endif
@@ -1040,7 +1043,7 @@
 			$('#loading_sub_category').hide();
 		}
 	};
-    //setInputLimiterById('product_highlight_text', {{ Config::get('mp_product.summary_max_length') }});
+    setInputLimiterById('product_highlight_text', {{ Config::get('webshoppack::summary_max_length') }});
 
 	function generateSlugUrl(){
 
@@ -1059,8 +1062,8 @@
 		if ($('#'+ident).length > 0){
 			$('#'+ident).inputlimiter({
 				limit: char_limit,
-				remText: '{{ trans("common.words_remaining_1")}} %n {{ trans("common.words_remaining_2")}} %s {{ trans("common.words_remaining_3")}}',
-				limitText: '{{ trans("common.limitted_words_1")}} %n {{ trans("common.limitted_words_2")}}%s'
+				remText: '{{ trans("webshoppack::common.words_remaining_1")}} %n {{ trans("webshoppack::common.words_remaining_2")}} %s {{ trans("webshoppack::common.words_remaining_3")}}',
+				limitText: '{{ trans("webshoppack::common.limitted_words_1")}} %n {{ trans("webshoppack::common.limitted_words_2")}}%s'
 			});
 		}
 	}

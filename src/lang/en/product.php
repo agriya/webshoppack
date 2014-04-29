@@ -145,6 +145,11 @@ return array(
 						),
 'products_not_found_msg'	=>	'No products found to list.',
 'invalid_seller_usercode' => 'Shop details not exist for this user',
+'product_created_to_activate' => "A product has been submitted for approval",
+'product_created_disapprove' => "Your product has been disapproved",
+'product_created_published_admin' => "A product has been added to the listing",
+'product_created_to_activate_admin' => "A product has been submitted for approval",
+'product_created_disapprove_admin' => "A product has been disapproved",
 );
 
 ?>

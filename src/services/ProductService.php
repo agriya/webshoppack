@@ -19,6 +19,8 @@ class ProductService
 	{
 		$this->p_tab_arr = array('basic' => false, 'price' => false, 'attribute' => false, 'preview_files' => false, 'download_files' => false, 'publish' => false);
 		$this->initProductTabList();
+		$user = \Config::get('webshoppack::logged_user_id');
+		$this->logged_user_id = $user();
     }
 
     public function getCookie($cookie_name)
@@ -479,10 +481,7 @@ class ProductService
 		$user_id = '';
 		if(count($input_arr) > 0)
 		{
-			$user = \Config::get('webshoppack::logged_user_id');
-			$user_id = $user();
-
-			$data_arr = array('user_id' => $user_id,
+			$data_arr = array('user_id' => $this->logged_user_id,
 	                            'section_name' => $input_arr['section_name'],
 	                            'status' => 'Yes',
 	                            'date_added' => date('Y-m-d H:i:s'),
@@ -498,8 +497,6 @@ class ProductService
 		$rules_arr = $message_arr = array();
 		if($tab == 'basic')
 		{
-			$user = \Config::get('webshoppack::logged_user_id');
-			$logged_user_id = $user();
 			$rules_arr = array('product_name' => 'Required|min:'.\Config::get("webshoppack::title_min_length").'|max:'.\Config::get("webshoppack::title_max_length"),
 								'product_category_id' => 'Required',
 								'product_tags' => 'Required',
@@ -509,7 +506,7 @@ class ProductService
 			//To validate section, only if input from user form
 			if(\Input::has('user_section_id'))
 			{
-				$rules_arr['user_section_id'] = 'exists:user_product_section,id,user_id,'.$logged_user_id;
+				$rules_arr['user_section_id'] = 'exists:user_product_section,id,user_id,'.$this->logged_user_id;
 			}
 			$message_arr = array('section_name.unique' => trans("webshoppack::product.section_already_exists"));
 		}
@@ -560,8 +557,6 @@ class ProductService
 		$p_id = 0;
 		if(count($input_arr) > 0 )
 		{
-			$user = \Config::get('webshoppack::logged_user_id');
-			$logged_user_id = $user();
 			$product_code = CUtil::generateRandomUniqueCode('P', 'product', 'product_code');
 			$url_slug = \Str::slug($input_arr['product_name']);
 			$data_arr = array('product_code' => $product_code,
@@ -583,7 +578,7 @@ class ProductService
 		                      'url_slug' => isset($input_arr['url_slug'])? $input_arr['url_slug'] : $url_slug,
 		                      'product_added_date' => 'Now()',
 		                      'last_updated_date' => 'Now()',
-		                      'product_user_id' => $logged_user_id);
+		                      'product_user_id' => $this->logged_user_id);
 
 			$p_id = Product::insertGetId($data_arr);
 
@@ -707,8 +702,6 @@ class ProductService
 	public function updateProduct($input_arr, $tab = 'basic')
 	{
 		$return_arr = array('status' => false, 'validate_tab_arr' => array(), 'final_success' => false);
-		$user = \Config::get('webshoppack::logged_user_id');
-		$logged_user_id = $user();
 		if(count($input_arr) > 0)
 		{
 			$data_arr = array();
@@ -840,14 +833,14 @@ class ProductService
 			{
 				Product::whereRaw('id = ?', array($input_arr['id']))->update($data_arr);
 				//To update product status
-				/*if(isset($data_arr['product_status']) && $data_arr['product_status'] == 'Ok')
+				if(isset($data_arr['product_status']) && $data_arr['product_status'] == 'Ok')
 				{
-					ProductService::updateUserTotalProducts($logged_user_id);
-				}*/
+					$this->updateUserTotalProducts($this->logged_user_id);
+				}
 				//Send mail alert to user for publish and submit for approval products...
 				if(isset($data_arr['product_status']) && ($data_arr['product_status'] == 'Ok' || $data_arr['product_status'] == 'ToActivate'))
 				{
-					//$this->sendProductMailToUserAndAdmin($input_arr['id']);
+					$this->sendProductMailToUserAndAdmin($input_arr['id']);
 				}
 				$final_success = (isset($this->hide_publish_tab_content) && $this->hide_publish_tab_content) ? true : false;
 			    return array('status' => true, 'validate_tab_arr' => $this->validate_tab_arr, 'final_success' => $final_success);
@@ -1473,9 +1466,7 @@ class ProductService
 		if(count($q) > 0)
 		{
 			//check if the logged in user has access
-			$user = \Config::get('webshoppack::logged_user_id');
-			$logged_user_id = $user();
-			if($q[0]->product_user_id == $logged_user_id || $q[0]->is_free_product == 'Yes')
+			if($q[0]->product_user_id == $this->logged_user_id || $q[0]->is_free_product == 'Yes')
 			{
 				$allowed_download = true;
 				$filename = $q[0]->filename . '.'. $q[0]->ext;
@@ -1538,11 +1529,15 @@ class ProductService
 		$c_id = 0;
 		if(count($input_arr) > 0 )
 		{
-			$user = \Config::get('webshoppack::logged_user_id');
-			$logged_user_id = $user();
 			$user_type = 'User';
-			//Check Admin
-			$data_arr = array('user_id' => $logged_user_id,
+			if($this->logged_user_id > 0) {
+				if(\Config::get("webshoppack::is_admin"))
+				{
+					$user_type = 'Admin';
+				}
+			}
+
+			$data_arr = array('user_id' => $this->logged_user_id,
 	                          'product_id' => $input_arr['product_id'],
 	                          'added_by' => $user_type,
 	                          'notes' => (isset($input_arr['comment']))? $input_arr['comment']: '',
@@ -1774,9 +1769,7 @@ class ProductService
 
 	public function checkIsShopNameExist()
 	{
-		$user = \Config::get('webshoppack::logged_user_id');
-		$logged_user_id = $user();
-		$shop_name = ShopDetails::where('user_id', '=', $logged_user_id)->pluck('shop_name');
+		$shop_name = ShopDetails::where('user_id', '=', $this->logged_user_id)->pluck('shop_name');
 		return ($shop_name == '')? false : true;
 	}
 
@@ -2042,4 +2035,170 @@ class ProductService
 		return Product::whereRaw('product_user_id = ? AND product_status = ?', array($shop_user_id, 'Ok'))->count();
 	}
 
+	public function formatProductPrice($product_details)
+	{
+		# Return values
+		$price_details['disp_price'] = $price_details['disp_label'] = $price_details['disp_link'] = $price_details['disp_discount'] = false;
+
+		# Assigned default values from the input
+		$is_free_product = isset($product_details['is_free_product']) ? $product_details['is_free_product'] : 'No';
+		$have_discount = isset($product_details['have_discount']) ? $product_details['have_discount'] : 0;
+		$product_discount_price = isset($product_details['product_discount_price']) ? $product_details['product_discount_price'] : 0.00;
+		$product_price = isset($product_details['product_price']) ? $product_details['product_price'] : 0.00;
+		$product_discount_fromdate = isset($product_details['product_discount_fromdate']) ? $product_details['product_discount_fromdate'] : '';
+		$product_discount_todate = isset($product_details['product_discount_todate']) ? $product_details['product_discount_todate'] : '';
+
+		# If not checked the discount option in query & discount from & to dates passed then checked the discount
+		if(!isset($product_details['have_discount']) && $product_discount_fromdate && $product_discount_todate)
+		{
+			$discount_from_time = strtotime($product_discount_fromdate);
+			$discount_end_time = strtotime($product_discount_todate);
+			$curr_time = strtotime(date('Y-m-d'));
+			if($discount_end_date >= $curr_date && $discount_from_date <= $curr_date)
+			{
+				$have_discount = 1;
+			}
+		}
+
+		# Checked discount or not
+		if($is_free_product == 'No' && $have_discount && $product_discount_price > 0)
+		{
+			$price_details['disp_discount'] = true;
+		}
+
+		# Set price details
+		if($product_price)
+		{
+			$price_details['disp_price'] = true;
+		}
+		return $price_details;
+	}
+
+	public function checkIsShopPaypalUpdated()
+	{
+		$shop_paypal_id = UsersShopDetails::where('user_id', '=', $this->logged_user_id)->pluck('paypal_id');
+		return ($shop_paypal_id == '')? false : true;
+	}
+
+	public function updateUserTotalProducts($user_id)
+	{
+		$p_count = $this->getTotalProduct($user_id);
+		UsersShopDetails::where('user_id', '=', $user_id)->update( array('total_products' => $p_count));
+	}
+
+	public function sendProductMailToUserAndAdmin($p_id, $user_notes = '')
+	{
+		$product_details = Product::where('id', $p_id)->first();
+		$user_details = CUtil::getUserDetails($product_details->product_user_id);
+		$product_code = $product_details->product_code;
+		$url_slug = $product_details->url_slug;
+		$view_url = $this->getProductViewURL($p_id, $product_details);
+		$subject = trans('email.mpProductCreatedPublished');
+		if($product_details['product_status'] == 'ToActivate')
+		{
+			$subject = trans('webshoppack::product.product_created_to_activate');
+		}
+		elseif($product_details['product_status'] == 'NotApproved')
+		{
+			$subject = trans('webshoppack::product.product_created_disapprove');
+		}
+
+		$data = array(
+			'product_code'	=> $product_details['product_code'],
+			'product_name'  		=> $product_details['product_name'],
+			'url_slug'  		=> $product_details['url_slug'],
+			'product_description' => CUtil::wordWrap($product_details['product_description'], 300),
+			'product_user_id' => $product_details['product_user_id'],
+			'is_free_product'	  => $product_details['is_free_product'],
+			'product_status'	  => $product_details['product_status'],
+			'product_status_lang'	  => $this->getProductStatusLang($product_details['product_status']),
+			'product_tags'	  => $product_details['product_tags'],
+			'display_name'	 => $user_details['display_name'],
+			'user_email'	 => $user_details['email'],
+			'view_url'		=> $view_url,
+			'subject'		=> $subject,
+			'user_notes' => $user_notes
+		);
+
+		//Mail to User
+		\Mail::send('webshoppack::emails.productCreated', $data, function($m) use ($data) {
+				$m->to($data['user_email']);
+				$m->subject($data['subject']);
+			});
+
+		$this->sendNotificationMailForAdmin($p_id, compact('product_details', 'user_details'));
+	}
+
+	public function sendNotificationMailForAdmin($p_id, $arr)
+	{
+		$arr['product_details'] = isset($arr['product_details']) ?  $arr['product_details'] :
+															 Product::where('id', $p_id)->first();
+		$arr['user_details'] = isset($arr['user_details'])? $arr['user_details'] :
+															 CUtil::getUserDetails($arr['product_details']->product_user_id);
+
+		$view_url = $this->getProductViewURL($p_id, $arr['product_details']);
+		$arr['product_details']['view_url'] = $view_url;
+		$arr['product_details']['product_status_lang'] = $this->getProductStatusLang($arr['product_details']['product_status']);
+		$arr['product_details']['product_notes'] = $this->getUserLastProductNote($p_id);
+
+		$category_list = $this->retriveSingleCategoryPath($arr['product_details']['product_category_id']);
+		$category_arr = array();
+		foreach($category_list AS $cat)
+		{
+			$category_arr[] = $cat->category_name;
+		}
+		$category_arr = array_slice($category_arr, 1); //To remove root category
+		$arr['product_details']['category'] = implode(' / ', $category_arr);
+		$arr['product_details']['product_price'] = $arr['product_details']['product_price'];
+		$arr['product_details']['product_discount_price'] = $arr['product_details']['product_discount_price'];
+		$arr['product_details']['product_price_currency'] = $arr['product_details']['product_price_currency'];
+
+		$subject = trans('webshoppack::product.product_created_published_admin');
+		if($arr['product_details']['product_status'] == 'ToActivate')
+		{
+			$subject = trans('webshoppack::product.product_created_to_activate_admin');
+		}
+		elseif($arr['product_details']['product_status'] == 'NotApproved')
+		{
+			$subject = trans('webshoppack::product.product_created_disapprove_admin');
+		}
+
+		$arr['subject'] = $subject;
+		$arr['admin_email'] = \Config::get('webshoppack::admin_email');
+
+		\Mail::send('webshoppack::emails.productCreatedAdmin', $arr, function($m) use ($arr) {
+			$m->to($arr['admin_email']);
+			$m->subject($arr['subject']);
+		});
+
+	}
+
+	public function retriveSingleCategoryPath($category_id)
+	{
+		$q = \DB::select('SELECT parent.category_name FROM product_category AS node, product_category AS parent WHERE node.category_left BETWEEN parent.category_left AND parent.category_right AND node.id = ? ORDER BY node.category_left;', array($category_id));
+		return $q;
+	}
+
+	public function getProductStatusLang($p_status)
+	{
+		$status = $p_status;
+		if($p_status == 'Ok')
+		{
+			$status = trans("webshoppack::product.status_active");
+		}
+		elseif($p_status == 'ToActivate')
+		{
+			$status = trans("webshoppack::product.status_to_activate");
+		}
+		elseif($p_status == 'NotApproved')
+		{
+			$status = trans("webshoppack::product.status_in_not_approved");
+		}
+		return $status;
+	}
+
+	public function getUserLastProductNote($p_id)
+	{
+		return ProductLog::whereRaw('product_id = ? AND user_id = ?', array($p_id, $this->logged_user_id))->orderBy('id', 'DESC')->pluck('notes');
+	}
 }

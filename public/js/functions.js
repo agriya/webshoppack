@@ -56,3 +56,19 @@ var postAjaxForm = function(){
 	 });
 	 return false;
 };
+
+function jquery_ajax(url, pars, function_name){
+	if(arguments.length<=0){
+		var url = callBackArguments[0];
+		var pars = callBackArguments[1];
+		var function_name = callBackArguments[2];
+	}
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: pars,
+		/* beforeSend:displayLoadingImage(), */
+		success: eval(function_name)
+	 });
+	return false;
+};

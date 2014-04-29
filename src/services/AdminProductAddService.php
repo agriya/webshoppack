@@ -73,27 +73,9 @@ class AdminProductAddService
 
 		foreach($product_status_arr AS $value)
 		{
-			$status_arr[$value] = $this->getProductStatusLang($value);
+			$status_arr[$value] = $this->productService->getProductStatusLang($value);
 		}
 		return $status_arr;
-	}
-
-	public function getProductStatusLang($p_status)
-	{
-		$status = $p_status;
-		if($p_status == 'Ok')
-		{
-			$status = trans("webshoppack::product.status_active");
-		}
-		elseif($p_status == 'ToActivate')
-		{
-			$status = trans("webshoppack::product.status_to_activate");
-		}
-		elseif($p_status == 'NotApproved')
-		{
-			$status = trans("webshoppack::product.status_in_not_approved");
-		}
-		return $status;
 	}
 
 	public function getTabList($p_id, $input_arr = array(), $action = 'add')
@@ -505,8 +487,8 @@ class AdminProductAddService
 				//To update product status
 				if(isset($data_arr['product_status']) && $data_arr['product_status'] == 'Ok')
 				{
-					//$product_user_id = Product::whereRaw('id = ?', array($input_arr['id']))->pluck('product_user_id');
-					//ProductService::updateUserTotalProducts($product_user_id);
+					$product_user_id = Product::whereRaw('id = ?', array($input_arr['id']))->pluck('product_user_id');
+					$this->productService->updateUserTotalProducts($product_user_id);
 				}
 				//Send mail alert to user for publish and submit for approval products...
 				if(isset($data_arr['product_status']))
@@ -519,12 +501,12 @@ class AdminProductAddService
 						{
 							//To update prouduct activated date time.
 							Product::whereRaw('id = ?', array($input_arr['id']))->update( array('date_activated' => 'Now()'));
-							//$this->sendProductMailToUserAndAdmin($input_arr['id'], $input_arr['product_notes']);
+							$this->productService->sendProductMailToUserAndAdmin($input_arr['id'], $input_arr['product_notes']);
 						}
 					}
 					else if($data_arr['product_status'] == 'ToActivate' || $data_arr['product_status'] == 'NotApproved')
 					{
-						//$this->sendProductMailToUserAndAdmin($input_arr['id'], $input_arr['product_notes']);
+						$this->productService->sendProductMailToUserAndAdmin($input_arr['id'], $input_arr['product_notes']);
 					}
 				}
 

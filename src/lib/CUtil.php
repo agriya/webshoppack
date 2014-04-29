@@ -15,7 +15,7 @@ class CUtil
 				$fields .= ', ';			}
 			$fields .= $field.' AS '.$key;
 		}
-		$user_info = \DB::select('SELECT '.$fields.' FROM '.$user_table.' WHERE '.$user_id_field = $user_id);
+		$user_info = \DB::select('SELECT '.$fields.' FROM '.$user_table.' WHERE '.$user_id_field.' = \''.$user_id.'\'');
 		if(count($user_info) > 0) {
 			foreach($user_info AS $user_det) {
 				$user_details['user_code'] = CUtil::setUserCode($user_id);
@@ -529,5 +529,14 @@ class CUtil
 		$ret = preg_replace("#(^|[\n ])([a-z0-9&\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>", $ret);
 		$ret = substr($ret, 1);
 		return $ret;
+	}
+
+	public static function wordWrap($text, $textLimit = 100, $extra_char = '...')
+	{	if(strlen($text) > $textLimit)
+		{
+			$return_str = preg_replace('/\s+?(\S+)?$/', '', substr($text, 0, $textLimit));
+			return $return_str.$extra_char;
+		}
+		return $text;
 	}
 }

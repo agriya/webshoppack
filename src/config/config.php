@@ -207,6 +207,19 @@ return array(
 },
 
 /**
+ * is Admin user
+ *
+ * @type boolean
+ */
+'is_admin'=> function()
+{
+	if(Sentry::getUser()->hasAnyAccess(['system', 'system.Admin'])) {
+		return true;
+	}
+	return false;
+},
+
+/**
  * The login path is the path where the user if they fail a permission check
  *
  * @type string
@@ -280,5 +293,15 @@ return array(
 'user_image_large_height' => 140,
 'currency_seeder_file' => 'packages/agriya/webshoppack/files/currency.txt',
 'shop_product_per_page_list' => '10',
+'admin_product_catalog_uri'	=>	'webshop/admin/manage-product-catalog',
+'admin_product_cat_uri'	=>	'webshop/admin/product-category',
+'admin_product_cat_attr_uri'	=>	'webshop/admin/category-attributes',
+'product_category_image_folder' => 'packages/agriya/webshoppack/files/product_category_image/',
+'product_category_uploader_allowed_extensions' => 'jpg,jpeg,png,gif',
+'product_category_image_uploader_allowed_file_size' => '5',
+'product_category_image_thumb_width' => '176',
+'product_category_image_thumb_height' => '160',
+'product_category_image_allowed_upload_limit' => '1',
+'admin_email' => 'm.bindu@agriya.in',
 );
 ?>

@@ -710,6 +710,9 @@
 </div>
 @stop
 @section('script_content')
+	@if($d_arr['p'] == 'basic')
+		<script src="{{ URL::asset('packages/agriya/webshoppack/js/lib/jquery.inputlimiter.js') }}"></script>
+	@endif
 	@if($d_arr['p'] == 'preview_files')
 		<script src="{{ URL::asset('packages/agriya/webshoppack/js/lib/jQuery_plugins/jquery.tablednd_0_5.js') }}"></script>
 	@endif
@@ -894,6 +897,17 @@
 				$('#loading_sub_category').hide();
 			}
 		};
+		setInputLimiterById('product_highlight_text', {{ Config::get('webshoppack::summary_max_length') }});
+
+		function setInputLimiterById(ident, char_limit)	{
+			if ($('#'+ident).length > 0){
+				$('#'+ident).inputlimiter({
+					limit: char_limit,
+					remText: '{{ trans("webshoppack::common.words_remaining_1")}} %n {{ trans("webshoppack::common.words_remaining_2")}} %s {{ trans("webshoppack::common.words_remaining_3")}}',
+					limitText: '{{ trans("webshoppack::common.limitted_words_1")}} %n {{ trans("webshoppack::common.limitted_words_2")}}%s'
+				});
+			}
+		}
 	@endif
 	@if($d_arr['p'] == 'price')
 		$(document).ready(function(){

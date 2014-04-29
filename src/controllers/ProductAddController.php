@@ -9,7 +9,7 @@ class ProductAddController extends \BaseController {
 
 	public function getIndex()
 	{
-		if(!$this->productService->checkIsShopNameExist())
+		if(!$this->productService->checkIsShopNameExist() || !$this->productService->checkIsShopPaypalUpdated())
     	{
 			return \Redirect::to(\Config::get('webshoppack::shop_uri').'/users/shop-details');
 		}
