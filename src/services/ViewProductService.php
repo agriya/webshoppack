@@ -4,7 +4,7 @@ class ViewProductService extends ProductService
 {
 	private $buyer_details = array();
 	public $product_user_id = 0;
-	private $logged_user_id = 0;
+	public $logged_user_id = 0;
 	public $set_as_private_note = '';
 
 	function __construct()

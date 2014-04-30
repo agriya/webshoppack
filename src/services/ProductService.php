@@ -549,6 +549,31 @@ class ProductService
 								);
 			}
 		}
+		elseif($tab == 'attribute')
+		{
+			if(isset($input_arr['product_category_id']) && is_numeric($input_arr['product_category_id']))
+			{
+				$attr_arr = $this->getAttributesList($input_arr['product_category_id']);
+				foreach($attr_arr AS $key => $val)
+				{
+					$id = $val['attribute_id'];
+					$key = 'attribute_'.$id;
+					if($val['validation_rules'] != '')
+					{
+						$rule_str = str_replace('minlength-', 'min:', $val['validation_rules']);
+						$rule_str = str_replace('maxlength-', 'max:', $rule_str);
+						$rules_arr[$key] = $rule_str;
+						$message_arr[$key.'.required'] = trans('webshoppack::common.required');
+						$message_arr[$key.'.alpha'] = trans("webshoppack::product.alpha_only");
+						$message_arr[$key.'.numeric'] = trans("webshoppack::product.numeric_only");
+					}
+				}
+			}
+		}
+		elseif($tab == 'publish')
+		{
+			$rules_arr = array('delivery_days' => 'numeric');
+		}
 		return array('rules' => $rules_arr, 'messages' => $message_arr);
 	}
 
@@ -1564,6 +1589,12 @@ class ProductService
 
 	public function validateTabList($p_id, $input_arr = array())
 	{
+		if($input_arr['product_discount_price'] > 0)
+		{
+			$input_arr['product_discount_fromdate'] = date('d/m/Y', strtotime($input_arr['product_discount_fromdate']));
+			$input_arr['product_discount_todate'] = date('d/m/Y', strtotime($input_arr['product_discount_todate']));
+		}
+
 		 $tab_arr = array_map(function ($val){ return false;}, $this->p_tab_arr);
 		 if(count($input_arr) > 0)
 		 {
@@ -1590,10 +1621,10 @@ class ProductService
 					{
 						$tab_arr[$key] = true;
 					}
-					else
+					/*else
 					{
 						break;
-					}
+					}*/
 				}
 				else
 				{
@@ -1608,10 +1639,10 @@ class ProductService
 					{
 						$tab_arr[$key] = true;
 					}
-					else
+					/*else
 					{
 						break;
-					}
+					}*/
 				}
 			}
 		 }
@@ -2200,5 +2231,19 @@ class ProductService
 	public function getUserLastProductNote($p_id)
 	{
 		return ProductLog::whereRaw('product_id = ? AND user_id = ?', array($p_id, $this->logged_user_id))->orderBy('id', 'DESC')->pluck('notes');
+	}
+
+	public function updateProductResourceImageDisplayOrder($resourcednd)
+	{
+		foreach($resourcednd as $display_order=>$resource_id_str)
+		{
+			$temp = explode("_", $resource_id_str);
+			$resource_id = (isset($temp[1]) && $temp[1]) ? (int) $temp[1] : false;
+
+			if($resource_id)
+			{
+				ProductResource::whereRaw('id = ?', array($resource_id))->update(array('display_order' => $display_order));
+			}
+		}
 	}
 }

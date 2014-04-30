@@ -40,6 +40,9 @@ Add the following to app/routes.php
 			Config::get('webshoppack::admin_uri').'/list', 'Agriya\Webshoppack\AdminProductListController'
 		);
 		Route::controller(
+			Config::get('webshoppack::admin_uri').'/view/{slug_url}', 'Agriya\Webshoppack\AdminViewProductController'
+		);
+		Route::controller(
 			Config::get('webshoppack::admin_shop_uri'), 'Agriya\Webshoppack\AdminManageShopController'
 		);
 		Route::controller(
@@ -63,28 +66,28 @@ Add the following to app/routes.php
 	});
 	Route::get(
 		Config::get('webshoppack::uri').'/{path}', function($path) {
-	    $path = substr($path, 0, 1) == '/' ? substr($path, 1) : $path;
-	    $slugs = explode('/', $path);
+		$path = substr($path, 0, 1) == '/' ? substr($path, 1) : $path;
+		$slugs = explode('/', $path);
 
-	    $check = function($page, $slugs) use(&$check) {
-		if($page->parent_category_id == 1) {
-		    return true;
-		}
+		$check = function($page, $slugs) use(&$check) {
+			if($page->parent_category_id == 1) {
+			    return true;
+			}
 
-		$parent = Agriya\Webshoppack\ProductCategory::find($page->parent_category_id);
-		if($parent->seo_category_name == array_pop($slugs)) {
-		    return $check($parent, $slugs);
-		}
-	    };
+			$parent = Agriya\Webshoppack\ProductCategory::find($page->parent_category_id);
+			if($parent->seo_category_name == array_pop($slugs)) {
+			    return $check($parent, $slugs);
+			}
+		    };
 		$error = true;
-	    foreach(Agriya\Webshoppack\ProductCategory::where('seo_category_name', '=', array_pop($slugs))->get() as $page) {
-		if($check($page, $slugs)) {
-			$error = true;
-		    break;
-		}
-	    }
-	    //todo : handle error
-	    if(!isset($page)) {
+		    foreach(Agriya\Webshoppack\ProductCategory::where('seo_category_name', '=', array_pop($slugs))->get() as $page) {
+			if($check($page, $slugs)) {
+				$error = true;
+			    break;
+			}
+		    }
+		//todo : handle error
+		if(!isset($page)) {
 			return Agriya\Webshoppack\ProductController::showList(0);
 		}
 		else {

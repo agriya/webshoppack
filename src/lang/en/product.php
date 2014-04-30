@@ -150,6 +150,9 @@ return array(
 'product_created_published_admin' => "A product has been added to the listing",
 'product_created_to_activate_admin' => "A product has been submitted for approval",
 'product_created_disapprove_admin' => "A product has been disapproved",
+'alpha_only' => 'Alphabets only',
+'numeric_only' => 'Numeric only',
+'invalid_user_code' => 'Invalid user code',
 );
 
 ?>
