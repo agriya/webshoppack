@@ -1,4 +1,4 @@
-@extends('webshoppack::admin')
+@extends(Config::get('webshoppack::package_admin_layout'))
 @section('content')
 	@if(Session::has('error_message') && Session::get('error_message') != '')
         <div class="alert alert-danger">{{ Session::get('error_message') }}</div>

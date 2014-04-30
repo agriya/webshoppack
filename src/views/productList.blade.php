@@ -1,4 +1,4 @@
-@extends(\Config::get('webshoppack::base_view'))
+@extends(\Config::get('webshoppack::package_layout'))
 <title>{{ \Config::get('webshoppack::manage_product_title') }}</title>
 @section('content')
 <h1 class="title-one">{{ \Lang::get('webshoppack::product.list_product') }}</h1>

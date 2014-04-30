@@ -28,6 +28,36 @@
 
         {{-- Price details end --}}
 
+		{{-- Seller details start --}}
+		    <div class="seller-profile">
+	            <?php
+	                //$user_image = CUtil::getUserPersonalImage($p_details['product_user_id'], 'thumb');
+	                //$feedback_arr = $service_obj->getFeedbackStatus($p_details['product_user_id']);
+	                //$feedback_url = FeedbackService::getFeedbackViewURL($p_details['product_user_id']);
+	            ?>
+	            <!--<h3 class="title-four">{{ trans('webshoppack::viewProduct.seller') }}</h3>-->
+	            <div class="media">
+
+	                <div class="media-body">
+	                    <p class="media-heading"><a href='{{$user_details['profile_url']}}' target="_blank" class="light-link">{{ $user_details['display_name'] }}</a>{{-- <i class="fa fa-heart"></i> --}}</p>
+
+	                    @if($logged_user_id == $p_details['product_user_id'])
+	                    	<?php $edit_url =  \URL::to(\Config::get('webshoppack::admin_uri').'/add?id='.$p_details['id']); ?>
+	                        <p><a href='{{$edit_url}}' class="btn btn-default btn-xs">{{ trans('webshoppack::edit') }}</a></p>
+	                    @endif
+
+	                    @if(Sentry::check())
+	                        @if($logged_user_id != $p_details['product_user_id'])
+	                            <a href="@if($preview_mode){{ $no_url }} @else{{ \Url::to(\Config::get('webshoppack::shop_uri').'/user/message/add/'.$user_details['user_code']) }} @endif" class="fn_signuppop btn btn-default btn-xs">{{ trans('webshoppack::viewProduct.contact') }}</a>
+	                        @endif
+	                    @else
+	                    	<?php $login_url = \url(\Config::get('webshopauthenticate::uri').'/login?form_type=selLogin'); ?>
+	                        <a href="{{ $login_url }}" class="fn_signuppop btn btn-default btn-xs">{{ trans('webshoppack::viewProduct.contact') }}</a>
+	                    @endif
+	                </div>
+	            </div>
+	        </div>
+        {{-- Seller details end --}}
 
 
         </div>

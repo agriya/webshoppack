@@ -4,11 +4,17 @@
     </script>
 
     <ul class="nav nav-list">
-        <li {{ (Request::is(Config::get('webshoppack::admin_uri').'/*')  ? 'class="active"' : '') }}>
+        <li {{ (Request::is(Config::get('webshoppack::admin_uri').'/*')) ||  (Request::is(Config::get('webshoppack::admin_product_catalog_uri'))) ||  (Request::is(Config::get('webshoppack::admin_product_attr_uri'))) ? 'class="active"' : '' }}>
         	<a href="#" class="dropdown-toggle"><i class="icon-desktop"></i><span class="menu-text">Products</span><b class="arrow icon-angle-down"></b></a>
         	<ul class="submenu">
 				<li {{ (Request::is(Config::get('webshoppack::admin_uri').'/*') ? 'class="active"' : '') }}>
 	        	    <a href="{{ Url::to(Config::get('webshoppack::admin_uri').'/list')}}"><i class="icon-double-angle-right"></i> {{ trans('webshoppack::admin/productList.product_head') }}</a>
+	            </li>
+	            <li {{ (Request::is(Config::get('webshoppack::admin_product_catalog_uri')) ? 'class="active"' : '') }}>
+	        	    <a href="{{ Url::to(Config::get('webshoppack::admin_product_catalog_uri'))}}"><i class="icon-double-angle-right"></i> {{ trans('webshoppack::common.product_categories') }}</a>
+	            </li>
+	            <li {{ (Request::is(Config::get('webshoppack::admin_product_attr_uri')) ? 'class="active"' : '') }}>
+	        	    <a href="{{ Url::to(Config::get('webshoppack::admin_product_attr_uri'))}}"><i class="icon-double-angle-right"></i> {{ trans('webshoppack::common.product_attributes') }}</a>
 	            </li>
 	        </ul>
 		</li>

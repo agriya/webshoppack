@@ -50,7 +50,7 @@ class ProductService
 
 		if(count($p_default_arr) > 0 && isset($p_default_arr['default_title']) && $p_default_arr['default_title'] != "")
 		{
-			$img_path = URL::asset(Config::get("webshoppack::photos_folder"))."/";
+			$img_path = \URL::asset(\Config::get("webshoppack::photos_folder"))."/";
 			$large_img_attr = CUtil::TPL_DISP_IMAGE($cfg_large_width, $cfg_large_height, $p_default_arr["default_width"], $p_default_arr["default_height"]);
 			$thumb_img_attr = CUtil::TPL_DISP_IMAGE($cfg_thumb_width, $cfg_thumb_height, $p_default_arr["default_width"], $p_default_arr["default_height"]);
 
@@ -69,7 +69,7 @@ class ProductService
 		}
 		else
 		{
-			$result_arr = array('title' => trans('mp_product/viewProduct.no_image'),
+			$result_arr = array('title' => trans('webshoppack::viewProduct.no_image'),
 									'img_name' => '',
 									'img_ext' => '',
 									'orig_img_path' => '',
@@ -215,9 +215,9 @@ class ProductService
 	{
 		$product_code = '';
 		$matches = null;
-		preg_match('/^(P[0-9]{3})\-/', $seo_title, $matches);
+		preg_match('/^(P[0-9]{6})\-/', $seo_title, $matches);
 		if (!isset($matches[1])) {
-			preg_match('/^(P[0-9]{3})$/', $seo_title, $matches);
+			preg_match('/^(P[0-9]{6})$/', $seo_title, $matches);
 		}
 		if (isset($matches[1])){
 			$product_code = $matches[1];
@@ -311,7 +311,25 @@ class ProductService
 			}
 		}
 
-		$this->order_by_field = 'date_activated';
+		$this->order_by_field = $this->order_by;
+		if($this->order_by == 'id')
+		{
+			$this->order_by_field = 'date_activated';
+		}
+		if($this->order_by == 'product_sold')
+		{
+			$this->qry->whereRaw("(product.is_free_product = 'No' AND product.product_price_usd != 0 AND  product.product_price_usd != '' ) AND (product.product_sold > 0)");
+		}
+		if($this->order_by == 'featured')
+		{
+			$this->order_by_field = 'date_activated';
+			$this->qry->Where('product.is_featured_product', '=', 'Yes');
+		}
+		if($this->order_by == 'is_free_product')
+		{
+			$this->qry->whereRaw(" ( product.is_free_product = 'Yes' OR  (product.product_price_usd = 0 OR product.product_price_usd = '' ) )");
+		}
+
 		$this->qry->groupBy('product.id');
 		$this->qry->orderBy($this->order_by_field, 'DESC');
 		return $this->qry;
@@ -601,8 +619,8 @@ class ProductService
 		                      'global_transaction_fee_used' => 'Yes',
 		                      'product_category_id' => $input_arr['my_category_id'],
 		                      'url_slug' => isset($input_arr['url_slug'])? $input_arr['url_slug'] : $url_slug,
-		                      'product_added_date' => 'Now()',
-		                      'last_updated_date' => 'Now()',
+		                      'product_added_date' => \DB::raw('NOW()'),
+		                      'last_updated_date' => \DB::raw('NOW()'),
 		                      'product_user_id' => $this->logged_user_id);
 
 			$p_id = Product::insertGetId($data_arr);
@@ -750,7 +768,7 @@ class ProductService
 		                            'product_tags' => $input_arr['product_tags'],
 		                            'user_section_id' => $input_arr['user_section_id'],
 		                            'product_category_id' => $input_arr['my_category_id'],
-		                            'last_updated_date' => 'Now()',
+		                            'last_updated_date' => \DB::raw('NOW()'),
 			                      );
 			}
 			elseif($tab == 'price')
@@ -771,7 +789,7 @@ class ProductService
 						$data_arr['product_discount_fromdate'] =  $from_date;
 					 	$data_arr['product_discount_todate'] =  $to_date;
 					}
-					$data_arr['last_updated_date'] = 'Now()';
+					$data_arr['last_updated_date'] = \DB::raw('NOW()');
 					$data_arr['product_price_currency'] = \Config::get('webshoppack::site_default_currency');
 				 	$data_arr['product_price'] = $input_arr['product_price'];
 				 	$data_arr['product_price_usd'] = CUtil::convertBaseCurrencyToUSD($input_arr['product_price'], \Config::get('webshoppack::site_default_currency'));
@@ -795,7 +813,7 @@ class ProductService
 					$c_id = $this->addProductStatusComment($note_arr);
 				}
 				$data_arr['delivery_days'] = $input_arr['delivery_days'];
-				$data_arr['last_updated_date'] = 'Now()';
+				$data_arr['last_updated_date'] = \DB::raw('NOW()');
 				//To update status
 				if($input_arr['edit_product'] != '')
 				{
@@ -813,7 +831,7 @@ class ProductService
 							if($date_activated == '0000-00-00 00:00:00')
 							{
 								//To update prouduct activated date time.
-								Product::whereRaw('id = ?', array($input_arr['id']))->update( array('date_activated' => 'Now()'));
+								Product::whereRaw('id = ?', array($input_arr['id']))->update( array('date_activated' => \DB::raw('NOW()')));
 							}
 						}
 						else
@@ -1112,7 +1130,7 @@ class ProductService
 	{
 	 	if(is_numeric($p_id) && $p_id > 0)
 	 	{
-			Product::whereRaw('id = ?', array($p_id))->update(array('product_status' => $product_status, 'last_updated_date' => 'Now()'));
+			Product::whereRaw('id = ?', array($p_id))->update(array('product_status' => $product_status, 'last_updated_date' => \DB::raw('NOW()')));
 		}
 	}
 
@@ -1566,7 +1584,7 @@ class ProductService
 	                          'product_id' => $input_arr['product_id'],
 	                          'added_by' => $user_type,
 	                          'notes' => (isset($input_arr['comment']))? $input_arr['comment']: '',
-	                          'date_added' => 'Now()');
+	                          'date_added' => \DB::raw('NOW()'));
 			$c_id = ProductLog::insertGetId($data_arr);
 		}
 		return $c_id;
@@ -1892,7 +1910,7 @@ class ProductService
 	 {
 	 	if(is_numeric($p_id) && $p_id > 0)
 	 	{
-			Product::whereRaw('id = ?', array($p_id))->update(array('last_updated_date' => 'Now()'));
+			Product::whereRaw('id = ?', array($p_id))->update(array('last_updated_date' => \DB::raw('NOW()')));
 		}
 	 }
 
@@ -2124,7 +2142,7 @@ class ProductService
 		$product_code = $product_details->product_code;
 		$url_slug = $product_details->url_slug;
 		$view_url = $this->getProductViewURL($p_id, $product_details);
-		$subject = trans('email.mpProductCreatedPublished');
+		$subject = trans('webshoppack::product.product_created_published');
 		if($product_details['product_status'] == 'ToActivate')
 		{
 			$subject = trans('webshoppack::product.product_created_to_activate');
@@ -2244,6 +2262,34 @@ class ProductService
 			{
 				ProductResource::whereRaw('id = ?', array($resource_id))->update(array('display_order' => $display_order));
 			}
+		}
+	}
+
+	public function populateOptionsArray()
+	{
+		$populateOptionsArray = array();
+		$list_paging_sort_by = \Config::get("webshoppack::list_paging_sort_by");
+		$inc = 0;
+		foreach ($list_paging_sort_by as $key => $filter)
+		{
+			$populateOptionsArray[$inc]['href'] = \Request::url().'?orderby_field='.$filter;
+			$inner_txt = (trans('webshoppack::product.product_listing_'.$key) != '') ? trans('webshoppack::product.product_listing_'.$key) : $key;
+			$populateOptionsArray[$inc]['innervalue'] = $filter;
+			$populateOptionsArray[$inc]['innertext'] = $inner_txt;
+			$inc++;
+		}
+		return 	$populateOptionsArray;
+	}
+
+	public function setProductOrderBy($orderby_field)
+	{
+		if($orderby_field != "")
+		{
+			$this->order_by = $orderby_field;
+		}
+		else
+		{
+			$this->order_by = "id";
 		}
 	}
 }

@@ -350,3 +350,24 @@ CREATE TABLE `users_shop_details` (
   `paypal_id` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- Date added: 30/04/2014
+
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE `message` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `date_added` datetime NOT NULL,
+  `from_user_id` bigint(20) NOT NULL,
+  `to_user_id` bigint(20) NOT NULL,
+  `last_replied_by` bigint(20) NOT NULL,
+  `last_replied_date` datetime NOT NULL,
+  `subject` varchar(200) NOT NULL,
+  `reply_count` int(16) NOT NULL,
+  `message_text` text NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `is_replied` tinyint(1) NOT NULL DEFAULT '0',
+  `rel_type` varchar(100) NOT NULL,
+  `rel_id` int(16) NOT NULL,
+  `rel_table` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;

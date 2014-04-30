@@ -1,4 +1,4 @@
-@extends('webshoppack::admin')
+@extends(Config::get('webshoppack::package_admin_layout'))
 @section('content')
 	<?php
 		$logged_user_id = (Sentry::getUser())? Sentry::getUser()->user_id : 0;

@@ -198,7 +198,7 @@ class ProductAddController extends \BaseController {
 				}
 				else
 				{
-					return \Redirect::to(\Config::get('webshoppack::uri').'/add?id='.$input_arr['id'].'&p=price')->with('error_message', trans('webshoppack::common.correct_errors'))->withInput()->withErrors($validator);
+					return \Redirect::to(\Config::get('webshoppack::uri').'/add?id='.$input_arr['id'].'&p='.$input_arr['p'])->with('error_message', trans('webshoppack::common.correct_errors'))->withInput()->withErrors($validator);
 				}
 			}
 		}

@@ -11,10 +11,11 @@ class ProductController extends \BaseController {
 		//stores the product count in each category..
 		$productService->getCountForProducts();
     	$cat_list = $productService->populateProductCategoryList($cat_id);
+    	$productService->setProductOrderBy(\Input::get('orderby_field'));
     	$q = $productService->buildProductQuery($cat_id);
     	$list_prod_serviceobj = $productService;
-    	//$perPage = Config::get('mp_product.market_place_product_per_page_list');
-		$product_details = $q->paginate('10');
+    	$perPage = \Config::get('webshoppack::product_per_page_list');
+		$product_details = $q->paginate($perPage);
 		$product_total_count = $product_details->getTotal();
 		$category_name = "";
 		if($cat_id > 0)

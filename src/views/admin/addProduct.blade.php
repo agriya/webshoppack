@@ -1,4 +1,4 @@
-@extends('webshoppack::admin')
+@extends(Config::get('webshoppack::package_admin_layout'))
 <?php
     $header_title = ($action == 'add')? 'add_title' : 'edit_title';
     $product_status = 'Draft';
@@ -81,7 +81,7 @@
 									{{  Form::text('user_code', $d_arr['user_code'], array('class' => 'col-xs-10 col-sm-9 valid', 'onBlur' => 'javascript:chkValidUsername();')); }}
 									<label class="error fn_usercodeErr">{{{ $errors->first('user_code') }}}</label>
 								@else
-									<label class="mt5">{{ HTML::link($d_arr['product_user_details']['profile_url'], $d_arr['product_user_details']['user_code'], array('title' => $d_arr['product_user_details']['display_name'], 'target' => '_blank')) }}</label>
+									<label class="mt5">{{ $d_arr['product_user_details']['user_code'] }}</label>
 								@endif
 							</div>
 						</div>
@@ -809,7 +809,7 @@
     @endif
    <script language="javascript" type="text/javascript">
 	var mes_required = "{{trans('webshoppack::common.required')}}";
-	var cfg_site_name = "Webshop" ;
+	var cfg_site_name = "{{ Config::get('webshoppack::package_name') }}" ;
 	var product_actions_url = '{{ URL::action('Agriya\Webshoppack\AdminProductAddController@postProductActions')}}';
 	var product_id = '{{ $p_id }}'
 	var action = "{{ $action }}";
@@ -1638,7 +1638,7 @@
 					$('#item_resource_save_span_' + resource_id).hide();// .removeClass('clsSubmitButton');
 					updateProductStatus();
 				} else {
-					showErrorDialog({status: 'error', error_message: '{{  trans("admin/mp_product/productAdd.not_completed") }}'});
+					showErrorDialog({status: 'error', error_message: '{{  trans("webshoppack::product.not_completed") }}'});
 				}
 				hideLoadingImage (false);
 
@@ -1653,12 +1653,12 @@
 		{
 			if ($('#sel_NotesBlock').is(':visible'))
 			{
-				$('#showNotes').html("{{  trans("mp_product/form.products_show_product_notes") }}");
+				$('#showNotes').html("{{  trans("webshoppack::product.products_show_product_notes") }}");
 				$('#sel_NotesBlock').hide();
 			}
 			else
 			{
-				$('#showNotes').html("{{  trans("mp_product/form.products_hide_product_notes") }}");
+				$('#showNotes').html("{{  trans("webshoppack::product.products_hide_product_notes") }}");
 				$('#sel_NotesBlock').show();
 			}
 		}

@@ -5,8 +5,7 @@
 			<?php
 				$p_img_arr = $service_obj->populateProductDefaultThumbImages($product['id']);
 				$p_thumb_img = $service_obj->getProductDefaultThumbImage($product['id'], 'thumb', $p_img_arr);
-				//$price = $service_obj->formatProductPrice($product);
-				$price = 0;
+				$price = $service_obj->formatProductPrice($product);
 				$view_url = $service_obj->getProductViewURL($product['id'], $product_details);
 			?>
 			<figure>
@@ -36,13 +35,13 @@
 					</p>
 					<div class="ml15">
 						@if(Config::get("webshoppack::is_logged_in"))
-							{{ Form::open(array('url' => 'checkout', 'method' => 'post', 'class' => 'form-horizontal',  'id' => 'checkOutfrm', 'name' => 'checkOutfrm')) }}
+							{{ Form::open(array('url' => '', 'method' => 'post', 'class' => 'form-horizontal',  'id' => 'checkOutfrm', 'name' => 'checkOutfrm')) }}
 								{{ Form::hidden('pid', $product['id'], array("id" => "pid"))}}
 								{{ Form::hidden('type', 'product', array("id" => "type"))}}
-								<button name="buy_now" id="buy_now" value="buy_now" type="submit" class="btn btn-success custom-btn2 btn-sm pull-right">{{ trans('webshoppack::shop.buy_now_label') }}</button>
+								<button name="buy_now" id="buy_now" value="buy_now" type="button" class="btn btn-success custom-btn2 btn-sm pull-right">{{ trans('webshoppack::shop.buy_now_label') }}</button>
 							{{ Form::close() }}
 						@else
-							<a href="{{url('users/login?form_type=selLogin')}}" class="fn_signuppop" action="{{url('users/signup-pop/selLogin')}}">
+							<a href="#">
 								<button name="buy_now" id="buy_now" value="buy_now" type="button" class="btn btn-success custom-btn2 btn-sm pull-right">{{ trans('webshoppack::shop.buy_now_label') }}</button>
 							</a>
 						@endif

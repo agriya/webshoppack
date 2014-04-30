@@ -189,7 +189,7 @@ class AdminCategoryAttributesService extends AdminProductCategoryService
 				);
 		}
 
-		$input_arr['date_added'] = 'Now()';
+		$input_arr['date_added'] = \DB::raw('NOW()');
 		$cat_attribute_id = ProductCategoryAttributes::insertGetId($input_arr);
 
 	    $attribute_id = $input_arr['attribute_id'];

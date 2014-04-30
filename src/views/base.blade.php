@@ -48,26 +48,14 @@
 		                </div>
 			        </div>
 
-			        @if(Config::get('webshoppack::use_package_header'))
-			        	<h1>{{ Config::get('webshoppack::package_name') }}</h1>
-			        @else
-						@if(Config::get('webshoppack::set_package_header_path') != '')
-							@include(Config::get('webshoppack::set_package_header_path'))
-						@endif
-			    	@endif
+			        <h1>{{ Config::get('webshoppack::package_name') }}</h1>
 
 	                <div class="col-md-12" role="main">
 	                	@yield('content')
 	                </div>
 	            </div>
 	        </section>
-	        @if(Config::get('webshoppack::use_package_footer'))
-        	<div class="footer">&copy; {{ Config::get('webshoppack::package_name') }} Inc. All rights reserved.</div>
-        @else
-			@if(Config::get('webshoppack::set_package_footer_path') != '')
-				@include(Config::get('webshoppack::set_package_footer_path'))
-			@endif
-    	@endif
+	        <div class="footer">&copy; {{ Config::get('webshoppack::package_name') }} Inc. All rights reserved.</div>
 		</article>
 		<!-- JS
 		================================================== -->

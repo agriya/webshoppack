@@ -29,20 +29,13 @@
         </div>
 		<?php
             $user_details = Agriya\Webshoppack\CUtil::getUserDetails($shop_details['user_id']);
-            //$user_image = CUtil::getUserPersonalImage($shop_details['user_id'], 'small');
-            //$feedback_arr = $service_obj->getFeedbackStatus($shop_details['user_id']);
-            //$feedback_url = FeedbackService::getFeedbackViewURL($shop_details['user_id']);
         ?>
-        <a href='#' title="{{ $user_details['display_name'] }}">{{ $user_details['display_name'] }}</a>
         <a href='#' class="light-link">{{ $user_details['display_name'] }}</a>
 		<ul class="list-unstyled no-mar clearfix">
-			@if($viewShopServiceObj->current_user)
-				<li><i class="fa fa-angle-right"></i><span><a href="{{ URL::to('users/edit-account') }}">{{ trans("webshoppack::common.edit") }}</a></span></li>
-			@endif
         	<li><i class="fa fa-angle-right"></i><span><a href="#" title="">{{ trans("webshoppack::shop.profile_label") }}</a></span></li>
         	@if(Config::get("webshoppack::is_logged_in"))
 				@if(!$viewShopServiceObj->current_user)
-	        		<li><i class="fa fa-angle-right"></i><span><a href="#" class="fn_signuppop">{{ trans("webshoppack::shop.contact_label") }}</a></span></li>
+	        		<li><i class="fa fa-angle-right"></i><span><a href="{{ Url::to(Config::get('webshoppack::shop_uri').'/user/message/add/'.$user_details['user_code']) }}" class="fn_signuppop">{{ trans("webshoppack::shop.contact_label") }}</a></span></li>
 	        	@endif
             @endif
 		</ul>

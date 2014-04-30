@@ -50,6 +50,13 @@ Add the following to app/routes.php
 		Route::controller(
 			Config::get('webshoppack::admin_uri').'/add', 'Agriya\Webshoppack\AdminProductAddController'
 		);
+		Route::controller(Config::get('webshoppack::admin_product_catalog_uri'), 'Agriya\Webshoppack\AdminManageProductCatalogController');
+
+		Route::controller(Config::get('webshoppack::admin_product_cat_uri'), 'Agriya\Webshoppack\AdminProductCategoryController');
+
+		Route::controller(Config::get('webshoppack::admin_product_cat_attr_uri'), 'Agriya\Webshoppack\AdminCategoryAttributesController');
+
+		Route::controller(Config::get('webshoppack::admin_product_attr_uri'), 'Agriya\Webshoppack\AdminProductAttributesController');
 	});
 
 	Route::group(array('before' => 'validate_login'), function()
@@ -57,8 +64,13 @@ Add the following to app/routes.php
 		Route::controller(
 			Config::get('webshoppack::uri').'/add', 'Agriya\Webshoppack\ProductAddController'
 		);
+		Route::get(Config::get('webshoppack::shop_uri').'/user/message/add/{user_code}', 'Agriya\Webshoppack\MessageAddController@getAdd');
+		Route::post(Config::get('webshoppack::shop_uri').'/user/message/add/{user_code}', 'Agriya\Webshoppack\MessageAddController@postAdd');
 		Route::controller(
 			Config::get('webshoppack::shop_uri').'/users/shop-details', 'Agriya\Webshoppack\ShopController'
+		);
+		Route::controller(
+			Config::get('webshoppack::shop_uri').'/{url_slug}', 'Agriya\Webshoppack\ViewShopController'
 		);
 		Route::controller(
 			Config::get('webshoppack::shop_uri'), 'Agriya\Webshoppack\ListShopController'

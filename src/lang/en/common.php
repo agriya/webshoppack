@@ -71,4 +71,13 @@ return array(
 	"words_remaining_3"		=>		"remaining...",
 	"limitted_words_1"		=>		"Field limited to",
 	"limitted_words_2"		=>		"character",
+	'new_message_posted_mail_for_admin'	=>  'New Message Posted',
+	'product_categories' 	=> 'Product Categories',
+	'product_attributes' 	=> 'Product Attributes',
+	'common_err_tip_required' => 'Required',
+	'common_err_tip_numeric' => 'Numeric only',
+	'common_err_tip_number' => 'Number only',
+	'common_err_tip_alpha' => 'Alphabets only',
+	'common_err_tip_minlength' => 'Less than minimum length',
+	'common_err_tip_maxlength' => 'Exceeds maximum length',
 );

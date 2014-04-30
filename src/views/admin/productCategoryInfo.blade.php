@@ -50,7 +50,7 @@
 										<li id="itemResourceRow_{{ $category_info['id'] }}" class="upload-img">
 										  <?php $imgPath = URL::asset(Config::get('webshoppack::product_category_image_folder')); ?>
 										   {{ HTML::image( $imgPath.'/'.$category_info['image_name'].'_T.'.$category_info['image_ext'], "", array()); }}
-										   <a title="{{trans('webshoppack::common.delete')}}" href="javascript: void(0);" onclick="javascript:removeCategoryImage({{ $category_info['id'] }}, '{{$category_info['image_name']}}', '{{$category_info['image_ext']}}','mp_productCategory.product_category_image_folder');" ><i class="fa fa-times-circle"></i></a>
+											<a title="{{trans('webshoppack::common.delete')}}" href="javascript: void(0);" onclick="javascript:removeCategoryImage({{ $category_info['id'] }}, '{{$category_info['image_name']}}', '{{$category_info['image_ext']}}','webshoppack::product.product_category_image_folder');" ><i class="fa fa-times-circle"></i>Delete</a>
 										</li>
 									@endif
 								  @endif

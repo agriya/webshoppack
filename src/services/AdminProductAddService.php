@@ -302,8 +302,8 @@ class AdminProductAddService
                             'product_price_currency' => \Config::get('webshoppack::site_default_currency'), //Make default USD format currency
                             'product_category_id' => $input_arr['my_category_id'],
                             'url_slug' => isset($input_arr['url_slug'])? $input_arr['url_slug'] : $url_slug,
-                            'product_added_date' => 'Now()',
-                            'last_updated_date' => 'Now()',
+                            'product_added_date' => \DB::raw('NOW()'),
+                            'last_updated_date' => \DB::raw('NOW()'),
                             'product_user_id' => $user_id);
 
 			$p_id = Product::insertGetId($data_arr);
@@ -375,7 +375,7 @@ class AdminProductAddService
 		                           'user_section_id' => $input_arr['user_section_id'],
 		                           'product_preview_type' => $input_arr['product_preview_type'],
 		                           'product_category_id' => $input_arr['my_category_id'],
-		                           'last_updated_date' => 'Now()',
+		                           'last_updated_date' => \DB::raw('NOW()'),
 			                      );
 			}
 			elseif($tab == 'price')
@@ -415,7 +415,7 @@ class AdminProductAddService
 					$data_arr['site_transaction_fee_percent'] = $site_transaction_fee_percent;
 					$data_arr['global_transaction_fee_used'] = $global_transaction_fee_used;
 
-					$data_arr['last_updated_date'] = 'Now()';
+					$data_arr['last_updated_date'] = \DB::raw('NOW()');
 					$data_arr['product_price_currency'] = \Config::get('webshoppack::site_default_currency');//'USD';//$input_arr['product_price_currency'];
 				 	$data_arr['product_price'] = $input_arr['product_price'];
 				 	$data_arr['product_price_usd'] = CUtil::convertBaseCurrencyToUSD($input_arr['product_price'], \Config::get('webshoppack::site_default_currency'));
@@ -429,7 +429,7 @@ class AdminProductAddService
 				$data_arr = array( 'meta_title' => $input_arr['meta_title'],
 		                            'meta_keyword' => $input_arr['meta_keyword'],
 		                            'meta_description' => $input_arr['meta_description'],
-		                            'last_updated_date' => 'Now()'
+		                            'last_updated_date' => \DB::raw('NOW()')
 			                      );
 			}
 			elseif($tab == 'attribute')
@@ -444,10 +444,10 @@ class AdminProductAddService
 				if($input_arr['product_notes'] != '')
 				{
 					$note_arr = array('product_id' => $input_arr['id'], 'comment' => $input_arr['product_notes']);
-					$c_id = $this->addProductStatusComment($note_arr);
+					$c_id = $this->productService->addProductStatusComment($note_arr);
 				}
 				$data_arr['delivery_days'] = $input_arr['delivery_days'];
-				$data_arr['last_updated_date'] = 'Now()';
+				$data_arr['last_updated_date'] = \DB::raw('NOW()');
 
 				//To update status
 				if($input_arr['edit_product'] != '')
@@ -500,7 +500,7 @@ class AdminProductAddService
 						if($date_activated == '0000-00-00 00:00:00')
 						{
 							//To update prouduct activated date time.
-							Product::whereRaw('id = ?', array($input_arr['id']))->update( array('date_activated' => 'Now()'));
+							Product::whereRaw('id = ?', array($input_arr['id']))->update( array('date_activated' => \DB::raw('NOW()')));
 							$this->productService->sendProductMailToUserAndAdmin($input_arr['id'], $input_arr['product_notes']);
 						}
 					}
@@ -696,7 +696,7 @@ class AdminProductAddService
 	public function downloadProductResouceFile($product_id = 0, $use_title = false)
 	{
 		$allowed_download = false;
-		$q = \DB::select('SELECT filename, ext, resource_type, title, product_user_id, is_free_product FROM product_resource AS IRS, mp_product AS MPI WHERE IRS.product_id = '.$product_id.' AND IRS.product_id = MPI.id AND is_downloadable = "Yes"');
+		$q = \DB::select('SELECT filename, ext, resource_type, title, product_user_id, is_free_product FROM product_resource AS IRS, product AS MPI WHERE IRS.product_id = '.$product_id.' AND IRS.product_id = MPI.id AND is_downloadable = "Yes"');
 
 		if(count($q) > 0)
 		{
@@ -794,10 +794,10 @@ class AdminProductAddService
 					{
 						$tab_arr[$key] = true;
 					}
-					else
+					/*else
 					{
 						break;
-					}
+					}*/
 				}
 				else
 				{
@@ -812,10 +812,10 @@ class AdminProductAddService
 					{
 						$tab_arr[$key] = true;
 					}
-					else
+					/*else
 					{
 						break;
-					}
+					}*/
 				}
 			}
 		 }

@@ -8,7 +8,9 @@ class ViewProductController extends \BaseController
 	function __construct()
 	{
 		$this->ViewProductService = new ViewProductService();
-        $this->logged_user_id = (\Sentry::getUser())? \Sentry::getUser()->id : '';
+		$user = \Config::get('webshoppack::logged_user_id');
+		$this->logged_user_id = $user();
+        //$this->logged_user_id = (\Sentry::getUser())? \Sentry::getUser()->id : '';
         //$this->beforeFilter('auth', array('except' => array('getIndex', 'getDemo', 'getProductComments')));
     }
 
@@ -28,7 +30,7 @@ class ViewProductController extends \BaseController
 
 			//echo "<pre>";print_r($product_service_details);echo "</pre>";
 			$this->ViewProductService->product_user_id = $p_details['product_user_id'];
-			//echo $this->logged_user_id." == ".$p_details['product_user_id']." == ".\Sentry::getUser()->id;
+			//echo $this->logged_user_id." == ".$p_details['product_user_id'];
 			if($p_details['product_status'] != 'Ok')
 			{
 				if($this->logged_user_id == $p_details['product_user_id'])

@@ -150,9 +150,16 @@ return array(
 'product_created_published_admin' => "A product has been added to the listing",
 'product_created_to_activate_admin' => "A product has been submitted for approval",
 'product_created_disapprove_admin' => "A product has been disapproved",
+'product_created_published' => "Your product has been successfully published",
 'alpha_only' => 'Alphabets only',
 'numeric_only' => 'Numeric only',
 'invalid_user_code' => 'Invalid user code',
+'seller_title' => 'Seller',
+'product_listing_id' => 'Recently Added',
+'product_listing_views' => 'Most Viewed',
+'product_listing_download' => 'Most Sold',
+'product_listing_free' => 'Free',
+'product_listing_featured' => 'Featured',
 );
 
 ?>

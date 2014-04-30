@@ -1,4 +1,4 @@
-@extends(\Config::get('webshoppack::base_view'))
+@extends(\Config::get('webshoppack::package_layout'))
 @section('content')
 <div class="add-product">
 	@if(Session::has('error_message') && Session::get('error_message') != '')
@@ -724,8 +724,7 @@
 	var mes_required = "{{trans('webshoppack::common.required')}}";
 	var product_actions_url = '{{ URL::action('Agriya\Webshoppack\ProductAddController@postProductActions')}}';
 	var product_id = '{{ $p_id }}';
-	//var cfg_site_name = "{{ Config::get('site.site_name') }}" ;
-	var cfg_site_name = "Webshop" ;
+	var cfg_site_name = "{{ Config::get('webshoppack::package_name') }}" ;
 	@if($d_arr['p'] == 'basic')
 		var root_category_id = "{{ $d_arr['root_category_id'] }}";
 		$("#addProductBasicfrm").validate({

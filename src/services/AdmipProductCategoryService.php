@@ -93,7 +93,7 @@ class AdminProductCategoryService extends AdminManageProductCatalogService
 				$available_sort_by_options = 'all';
 			}
 			$data_input_arr['available_sort_options'] = $available_sort_by_options;
-			$data_input_arr['date_added'] = 'Now()';
+			$data_input_arr['date_added'] = \DB::raw('NOW()');
 			$data_input_arr['parent_category_id'] = $data_arr['parent_category_id'];
 			$data_input_arr['status'] = $data_arr['status'];
 			$img_arr = array();

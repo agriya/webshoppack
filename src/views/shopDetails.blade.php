@@ -1,4 +1,4 @@
-@extends(\Config::get('webshoppack::base_view'))
+@extends(\Config::get('webshoppack::package_layout'))
 @section('content')
 	<h1 class="title-one">{{ trans("webshoppack::shopDetails.title") }}</h1>
 	<section class="mt15">

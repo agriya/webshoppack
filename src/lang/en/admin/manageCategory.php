@@ -62,6 +62,7 @@ return array(
 		'delete_category_success_msg'	=> 'Category deleted successfully',
 		'category_not_found_msg'	=> 'Sorry! Category not exist!',
 		'category_in_use_msg'	=> 'Sorry! The category or sub categories are in use, so category cannot be deleted.!',
+		'delete_category_image_confirm'		=> 'Are you sure you want to delete the category image?',
 	 ),
 
 	 'list-attribute'	=>  array (

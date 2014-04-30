@@ -11,7 +11,7 @@ class ProductCategoryTableSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		$now = date('Y-m-d H:i:s');
+		$now = \DB::raw('NOW()');
 
 		$basicdata['seo_category_name'] = 'Root';
 		$basicdata['category_name'] = 'Root';

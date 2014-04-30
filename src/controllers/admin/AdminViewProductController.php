@@ -30,7 +30,7 @@ class AdminViewProductController extends \BaseController
 			$this->ViewProductService->product_user_id = $p_details['product_user_id'];
 			if($p_details['product_status'] != 'Ok')
 			{
-				if($p_details['product_status'] = 'Deleted')
+				if(strtolower($p_details['product_status']) == 'deleted')
 				{
 					$alert_msg = trans('webshoppack::viewProduct.product_deleted_alert');
 					$preview_mode = true;

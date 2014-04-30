@@ -105,5 +105,6 @@ return array(
 	'comment_added_success' => 'Reply added successfully.',
 	'message_visibility' => 'Post as private message for',
 	'buy_now' => 'Buy Now',
-	'product_deleted_alert' => 'This product have been deleted'
+	'product_deleted_alert' => 'This product have been deleted',
+	'edit' => 'Edit'
 );

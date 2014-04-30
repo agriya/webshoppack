@@ -33,6 +33,7 @@ class CUtil
 				}
 			}
 		}
+		$user_details['profile_url'] = '#';
 		return $user_details;
 	}
 

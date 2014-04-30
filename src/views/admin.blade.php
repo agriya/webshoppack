@@ -53,24 +53,18 @@
             </div>
         </div>
 
-		@if(Config::get('webshoppack::use_package_admin_header'))
-	        <div class="navbar navbar-default" id="navbar">
-				<script type="text/javascript">
-					try{ace.settings.check('navbar' , 'fixed')}catch(e){}
-				</script>
+        <div class="navbar navbar-default" id="navbar">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
 
-	            <div class="navbar-container" id="navbar-container">
-					<div class="navbar-header pull-left logo">
-	                	<h1><a href="{{ URL::to(Config::get('webshoppack::admin_uri').'/list') }}" class="navbar-brand"> {{ Config::get('webshoppack::package_name') }}</a>
-	                    </h1><!--/.brand-->
-					</div><!-- /.navbar-header -->
-		        </div>
-	    	</div>
-	    @else
-			@if(Config::get('webshoppack::set_package_admin_header_path') != '')
-				@include(Config::get('webshoppack::set_package_admin_header_path'))
-			@endif
-    	@endif
+            <div class="navbar-container" id="navbar-container">
+				<div class="navbar-header pull-left logo">
+                	<h1><a href="{{ URL::to(Config::get('webshoppack::admin_uri').'/list') }}" class="navbar-brand"> {{ Config::get('webshoppack::package_name') }}</a>
+                    </h1><!--/.brand-->
+				</div><!-- /.navbar-header -->
+	        </div>
+    	</div>
 
         <div class="main-container" id="main-container">
 			<script type="text/javascript">
@@ -275,12 +269,6 @@
 			});
 		</script>
         @yield("script_content")
-        @if(Config::get('webshoppack::use_package_admin_footer'))
-        	<div class="footer">&copy; {{ Config::get('webshoppack::package_name') }} Inc. All rights reserved.</div>
-        @else
-			@if(Config::get('webshoppack::set_package_admin_footer_path') != '')
-				@include(Config::get('webshoppack::set_admin_package_footer_path'))
-			@endif
-    	@endif
+        <div class="footer">&copy; {{ Config::get('webshoppack::package_name') }} Inc. All rights reserved.</div>
     </body>
 </html>

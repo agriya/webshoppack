@@ -1,4 +1,4 @@
-@extends(\Config::get('webshoppack::base_view'))
+@extends(\Config::get('webshoppack::package_layout'))
 @section('content')
 	<?php
 		$logged_user_id = (Sentry::getUser())? Sentry::getUser()->user_id : 0;
@@ -121,6 +121,18 @@
 		<script src="{{ URL::asset('packages/agriya/webshoppack/js/lib/jcarousel-0.3.0/js/jcarousel.connected-carousels.js') }}"></script>
 
 	<script language="javascript" type="text/javascript">
+		$(".fn_signuppop").fancybox({
+	        maxWidth    : 800,
+	        maxHeight   : 630,
+	        fitToView   : false,
+	        width       : '70%',
+	        height      : '430',
+	        autoSize    : false,
+	        closeClick  : false,
+	        type        : 'iframe',
+	        openEffect  : 'none',
+	        closeEffect : 'none'
+	    });
 		@if(!$preview_mode)
 
 		 	$(".fn_ChangeStatus").fancybox({

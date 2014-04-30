@@ -1,4 +1,4 @@
-@extends(Config::get('webshoppack::base_view'))
+@extends(Config::get('webshoppack::package_layout'))
 @section('content')
 	@if(!$shop_status && $viewShopServiceObj->current_user)
 		<div class="alert alert-danger">{{ trans("webshoppack::shop.shopstatus_access_owner") }}</div>
@@ -73,5 +73,17 @@
             });
 			return false;
 		});
+		$(".fn_signuppop").fancybox({
+	        maxWidth    : 800,
+	        maxHeight   : 630,
+	        fitToView   : false,
+	        width       : '70%',
+	        height      : '430',
+	        autoSize    : false,
+	        closeClick  : false,
+	        type        : 'iframe',
+	        openEffect  : 'none',
+	        closeEffect : 'none'
+	    });
 	</script>
 @stop

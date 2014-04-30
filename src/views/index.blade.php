@@ -1,4 +1,4 @@
-@extends(\Config::get('webshoppack::base_view'))
+@extends(\Config::get('webshoppack::package_layout'))
 @section('content')
 	<h1 class="title-one">Items <span class="text-muted">({{$product_total_count}})</span></h1>
 	<div class="row">
@@ -12,6 +12,19 @@
 	            <div class="alert alert-success">{{ Session::get('success_message') }}</div>
 	            <?php Session::forget('success_message'); ?>
 	        @endif
+
+	        <div class="accountmenu-view">
+	            <div class="showpage">
+	                <ul class="nav nav-tabs custom-tabs mobile-menu clearfix">
+	                    <?php
+	                        $sort_by_arr = $list_prod_serviceobj->populateOptionsArray();
+	                    ?>
+	                    @foreach($sort_by_arr as $sortKey => $sort)
+	                        <li @if(Input::get('orderby_field') == $sort['innervalue']) class="active" @endif><a href="{{ $sort['href'] }}">{{ $sort['innertext'] }}</a></li>
+	                    @endforeach
+	                </ul>
+	            </div>
+	        </div>
 
 			<div class="well">
 	            @if(count($product_details) > 0)
@@ -39,7 +52,7 @@
 	                                <div class="pro-listsdetail row">
 	                                    <div class="col-lg-8 plft0">
 	                                        <h2 class="title-six"><a href="{{$view_url}}" title="{{{ $product['product_name']  }}}">{{{ $product['product_name'] }}}</a></h2>
-	                                        <p class="pro-des">{{ $seller_name }}</p>
+	                                        <p class="pro-des">{{ Lang::get('webshoppack::product.seller_title') }}: <a href='#' target="_blank">{{ $seller_name }}</a></p>
 	                                        <p class="pro-des">{{{ $product['product_highlight_text'] }}}</p>
 	                                    </div>
 	                                    <div class="col-lg-4 buy-block clearfix">

@@ -1,4 +1,4 @@
-@extends('webshoppack::admin')
+@extends(Config::get('webshoppack::package_admin_layout'))
 @section('content')
 	<div class="message-navbar mb20 mt10">
     	<a href="javascript:void(0);" onclick="addSubCategory({{ $root_category_id }});" title="{{ trans('webshoppack::admin/manageCategory.add_top_level_cat') }}" class="btn btn-success pull-right btn-xs"><i class="icon-plus-sign"></i> {{ trans('webshoppack::admin/manageCategory.add_top_level_cat') }}</a>
@@ -17,6 +17,9 @@
 	    <span class="ui-icon ui-icon-alert"></span>
 		<span id="dialog-category-err-msg-content" class="show ml15"></span>
 	</div>
+	<div id="dialog-delete-confirm" class="confirm-dialog-delete" title="" style="display:none;">
+          <p><span class="ui-icon ui-icon-alert"></span><small>{{  trans('webshoppack::admin/manageCategory.delete-category.delete_category_image_confirm') }}</small></p>
+    </div>
 
 	<div class="widget-box">
 		<div class="widget-header">
@@ -45,6 +48,8 @@
 		var call_default_functions = true;
 		/* total count of ajax functions checked when open & close loading dialog */
 		var total_ajax_functions_to_complete = 0;
+		var common_yes_label = "{{ trans('webshoppack::common.yes') }}";
+		var common_no_label = "{{ trans('webshoppack::common.no') }}";
 
 		$(function () {
 			// Settings up the tree - using $(selector).jstree(options);
@@ -555,7 +560,7 @@ var doAjaxSubmit = function() {
 					text: common_yes_label,
 					click: function()
 					{
-						catalogOpenLoadingDialog();
+						displayLoadingImage();
 						$.getJSON("{{ Url::action('Agriya\Webshoppack\AdminProductCategoryController@getDeleteCategoryImage') }}",
 						{resource_id: resource_id, imagename: imagename, imageext: imageext, imagefolder: imagefolder},
 							function(data)

@@ -93,53 +93,29 @@ return array(
 'base_view' => 'webshoppack::base',
 
 /*
+* Setting - package layout
+*/
+'package_layout' => 'webshoppack::base',
+
+/*
+* Setting - package layout for admin
+*/
+'package_admin_layout' => 'webshoppack::admin',
+
+/*
+*This view for email file
+*/
+'mail_view' => 'webshoppack::mail',
+
+/*
+*This view for email file
+*/
+'admin_mail' => 'r.senthilvasan@agriya.in',
+
+/*
 *Shop URI
 */
 'shop_uri'	=>	'webshop/shop',
-
-/*
-* Set as true for use package header
-*/
-'use_package_header' => true,
-
-/*
-* Set your own header path
-* make sure use_package_header variable set as false
-*/
-'set_package_header_path' => '',
-
-/*
-* Set as true for use package footer
-*/
-'use_package_footer' => true,
-
-/*
-* Set your own footer path
-* make sure use_package_footer variable set as false
-*/
-'set_package_footer_path' => '',
-
-/*
-* Set as true for use package admin header
-*/
-'use_package_admin_header' => true,
-
-/*
-* Set your own admin header path
-* make sure use_package_admin_header variable set as false
-*/
-'set_package_admin_header_path' => '',
-
-/*
-* Set as true for use package admin footer
-*/
-'use_package_admin_footer' => true,
-
-/*
-* Set your own footer admin path
-* make sure use_package_admin_footer variable set as false
-*/
-'set_package_admin_footer_path' => '',
 
 /**
  * The permission option is the highest-level authentication check that lets you define a closure that should return true if the current user
@@ -296,6 +272,7 @@ return array(
 'admin_product_catalog_uri'	=>	'webshop/admin/manage-product-catalog',
 'admin_product_cat_uri'	=>	'webshop/admin/product-category',
 'admin_product_cat_attr_uri'	=>	'webshop/admin/category-attributes',
+'admin_product_attr_uri'	=>	'webshop/admin/product-attributes',
 'product_category_image_folder' => 'packages/agriya/webshoppack/files/product_category_image/',
 'product_category_uploader_allowed_extensions' => 'jpg,jpeg,png,gif',
 'product_category_image_uploader_allowed_file_size' => '5',
@@ -303,5 +280,48 @@ return array(
 'product_category_image_thumb_height' => '160',
 'product_category_image_allowed_upload_limit' => '1',
 'admin_email' => 'm.bindu@agriya.in',
+'ui_options' => array('select'=>'Dropdown','check'=>'Checkbox','option'=>'Radio button','multiselectlist'=>'Multi-select list'),
+'ui_no_options' => array('text'=>'Textbox','textarea'=>'Textarea'),
+'validation_rules' => array(
+		array(
+			'name'=>'required',
+			'caption'=>'Required',
+			'input_box'=> false,
+			'validation'=>false
+		),
+		array(
+			'name'=>'numeric',
+			'caption'=>'Numeric',
+			'input_box'=> false,
+			'validation'=>false
+		),
+		array(
+			'name'=>'alpha',
+			'caption'=>'Alpha',
+			'input_box'=> false,
+			'validation'=>false
+		),
+		array(
+			'name'=>'maxlength',
+			'caption'=>'Max Length',
+			'input_box'=> true,
+			'validation'=>'required|number'
+		),
+		array(
+			'name'=>'minlength',
+			'caption'=>'Min Length',
+			'input_box'=> true,
+			'validation'=>'required|number'
+		)
+	),
+'attribute_per_page_list' => 10,
+'list_paging_sort_by' => array(
+	'id'		=> 'id',
+	'views' 	=> 'total_views',
+	'download'	=> 'product_sold',
+	'free'		=> 'is_free_product',
+	'featured'	=> 'featured'
+),
+'product_per_page_list' => 20,
 );
 ?>
