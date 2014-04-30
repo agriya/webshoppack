@@ -230,12 +230,33 @@ class ProductService
 		$user_first_name = \Config::get('webshoppack::user_table').'.'.\Config::get('webshoppack::user_fields')['fname'];
 		$user_last_name = \Config::get('webshoppack::user_table').'.'.\Config::get('webshoppack::user_fields')['lname'];
 		$this->applicable_cats_ids = array();
+		$search_product_tags_sql = "";
+
+		if(\Input::has('tag_search') && \Input::get('tag_search') != '')
+		{
+			$tagsearch_list = $this->remExcludeValuesFromSearchTags(\Input::get('tag_search'));
+			$this->exclude_tags = $tagsearch_list;
+			if(!empty($this->exclude_tags))
+			{
+				$excludetags_count = COUNT($this->exclude_tags);
+				$search_product_tags_sql = ', SUM(';
+				foreach($this->exclude_tags as $exclude_key => $exclude_val)
+				{
+					$priority_val = $excludetags_count - $exclude_key;
+					$search_product_tags_sql.= "
+						IF( product.product_name LIKE '%".addslashes($exclude_val)."%', ".$priority_val."*5, 0 )  +
+						IF( product.product_tags LIKE '%".addslashes($exclude_val)."%', ".$priority_val."*3, 0 ) +
+						IF( product.product_description LIKE '%".addslashes($exclude_val)."%', ".$priority_val."*1, 0 ) + ";
+				}
+				$search_product_tags_sql .= '0 ) AS relevant_count';
+			}
+		}
 
 		$this->qry = Product::Select(\DB::raw("product.id, product.product_status, product.url_slug, product.product_user_id, product.product_sold, product.product_added_date,
 									   product.product_category_id, product.product_tags, product.is_free_product, product.total_views, product.product_discount_price, product.product_discount_fromdate,
 									   product.product_discount_todate, product.product_price, product.product_name, product.product_description, product.product_highlight_text, product.demo_url, product.product_code,
 									   product_category.parent_category_id, product.date_activated, NOW() as date_current, IF( ( DATE( NOW() ) BETWEEN product.product_discount_fromdate AND product.product_discount_todate), 1, 0 ) AS have_discount,
-									   product.product_price_currency, product.product_price_usd, product.product_discount_price_usd"));
+									   product.product_price_currency, product.product_price_usd, product.product_discount_price_usd".$search_product_tags_sql));
 		$this->qry->join(\Config::get('webshoppack::user_table'), 'product.product_user_id', '=', \Config::get('webshoppack::user_table').'.'.\Config::get('webshoppack::user_id_field'));
 		$this->qry->join('product_category', 'product.product_category_id', '=', 'product_category.id');
 		$this->qry->LeftJoin('shop_details', 'product.product_user_id', '=', 'shop_details.user_id');
@@ -309,6 +330,31 @@ class ProductService
 										'(product.product_price_usd <= '.$end_price.')))'.
 										' AND product.is_free_product = \'No\''));
 			}
+		}
+
+		if(\Input::has('tag_search') && \Input::get('tag_search') != '')
+		{
+			$tags_condition = '';
+			$tagsearch_list = $this->exclude_tags;
+
+			if(!empty($tagsearch_list) and COUNT($tagsearch_list) > 0)
+			{
+				  if(\Config::get('webshoppack::product_search_include_title'))
+				  {
+					foreach($tagsearch_list as $tag_key => $tag_val)
+					{
+						if($tags_condition != "") {
+							$tags_condition .= " OR ";
+						}
+
+						$tags_condition .= "((product.product_tags LIKE '%".addslashes($tag_val)."%') OR (product.product_name LIKE '%".addslashes($tag_val)."%')
+											OR (product.product_description LIKE '%".addslashes($tag_val)."%') )";
+					}
+					if($tags_condition != '') {
+						$this->qry->whereRaw(\DB::raw("(".$tags_condition.")"));
+					}
+				  }
+			  }
 		}
 
 		$this->order_by_field = $this->order_by;
@@ -1914,7 +1960,7 @@ class ProductService
 		}
 	 }
 
-	public function fetchShopItems($shop_user_id, $current_p_id, $limit = 5)
+	public function fetchShopItems($shop_user_id, $current_p_id = 0, $limit = 5)
 	{
 		$items_arr = array();
 		$p_details = Product::whereRaw('product_user_id = ? AND product_status = ? AND id != ?', array($shop_user_id, 'Ok', $current_p_id))
@@ -1946,7 +1992,7 @@ class ProductService
 		}
 		if($url_slug != '')
 		{
-			$view_url = \URL::to('shop/'.$url_slug);
+			$view_url = \URL::to(\Config::get('webshoppack::shop_uri').'/'.$url_slug);
 			return $view_url;
 		}
 		return '';
@@ -2292,4 +2338,83 @@ class ProductService
 			$this->order_by = "id";
 		}
 	}
+
+	public function remExcludeValuesFromSearchTags($searchheader_val)
+	{
+		$text_to_search = $searchheader_val;
+		$symbol_arr = array(',', '.', '?', '*');
+		$text_to_search = str_replace($symbol_arr, ' ', $text_to_search);
+		//echo $text_to_search;
+		$search_arr = explode(" ", $text_to_search);
+		$search_arr = CUtil::arraytolower(array_filter($search_arr));
+		//Fetch the allowed tags from csv file
+		//$include_tagslist_arr = CUtil::arraytolower($this->fetchIncludeTagsFromCsv());
+		//Checked the csv values matched the search values
+
+		//$matched_array_values = array_intersect($include_tagslist_arr, $search_arr);
+		$search_arr = array_filter($search_arr, 'Agriya\Webshoppack\CUtil::remminLength');
+		//Merge the matched csv values into the array
+		//$merged_arr = array_merge($search_arr, $matched_array_values);
+		//$search_arr = array_unique(CUtil::arraytolower($merged_arr));
+		$result_arr = $stop_words_arr = array();
+		if(count($search_arr))
+		{
+			$stop_words_arr = $this->fetchExcludedTags($search_arr);
+
+			if(!empty($stop_words_arr))
+			{
+				foreach($search_arr as $word)
+				{
+					if(!in_array($word, $stop_words_arr))
+					{
+						$word = strtolower($word);
+						$result_arr[] = $word;
+					}
+				}
+			}
+			else
+				$result_arr = array_values($search_arr);
+		}
+		return $result_arr;
+	}
+
+	public function fetchExcludedTags($search_arr)
+	{
+		$stop_words_arr = array();
+		$tags = "";
+		foreach($search_arr as $tag)
+		{
+			$tags .= "'".addslashes($tag)."'".',';
+		}
+		$tags = substr($tags, 0, strrpos($tags, ','));
+		$tags_info = ApiExcludeTags::Select('tags')->whereRaw(\DB::raw('tags IN ('. $tags .')'))->get();
+		if(count($tags_info) > 0)
+		{
+			$stop_words_arr[] = $tags_info->tags;
+		}
+	}
+
+	/*public function fetchIncludeTagsFromCsv()
+	{
+		$row = 1;
+		$include_tags_list = array();
+
+		$destinationPath = \Config::get("webshoppack::tags_csv_file");
+		$tagscsv_path = \public_path().'/'.$destinationPath;
+
+		if (($handle = fopen($tagscsv_path, "r")) !== FALSE)
+		{
+		    while (($data = fgetcsv($handle, 10000, ",")) !== FALSE)
+			{
+		        $num = count($data);
+		        $row++;
+		        for ($c=0; $c < $num; $c++)
+				{
+		            $include_tags_list[] = $data[$c];
+		        }
+		    }
+		    fclose($handle);
+		}
+		return $include_tags_list;
+	}*/
 }

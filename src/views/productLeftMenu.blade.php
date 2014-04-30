@@ -40,6 +40,7 @@
                     @endforeach
 		        </ul>
 	    	@endif
+	    	<p>{{ Form::text('tag_search', Input::get('tag_search'), array('class' => 'form-control', 'placeholder' => Lang::get('webshoppack::product.keyword_search_title'))); }}</p>
 	        <p>{{ Form::text('author_search', Input::get('author_search'), array('class' => 'form-control', 'placeholder' => Lang::get('webshoppack::product.owner_search_title'))); }}</p>
 	        <p class="mb30">{{ Form::text('shop_search', Input::get('shop_search'), array('class' => 'form-control', 'placeholder' => Lang::get('webshoppack::product.shop_search_title'))); }}</p>
 			<h3 class="title-four">{{ Lang::get('webshoppack::product.price_range_title') }}</h3>

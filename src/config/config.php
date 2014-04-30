@@ -323,5 +323,7 @@ return array(
 	'featured'	=> 'featured'
 ),
 'product_per_page_list' => 20,
+'product_search_include_title'	=> 1,
+//'tags_csv_file' => 'packages/agriya/webshoppack/files/tags.csv',
 );
 ?>

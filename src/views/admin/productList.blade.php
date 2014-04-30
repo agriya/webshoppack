@@ -97,7 +97,7 @@
             {{ Form::close() }}
 
 		    <div class="message-navbar mb20">
-            	<a href="#" class="btn btn-info btn-xs pull-right"><i class="icon-plus-sign"></i> {{trans('webshoppack::admin/productList.add_product')}}</a>
+            	<a href="{{ URL:: to(Config::get('webshoppack::admin_uri').'/add') }}" class="btn btn-info btn-xs pull-right"><i class="icon-plus-sign"></i> {{trans('webshoppack::admin/productList.add_product')}}</a>
                 <h1 class="admin-title blue bigger-150">{{ $d_arr['product_list_title'] }}</h1>
             </div><!--/.page-header-->
 
@@ -226,7 +226,7 @@
 									</td>
 									<td class="hidden-sm btn-group">
 										<!--<div class="action-buttons">-->
-                                        	<a href="#" class="btn btn-xs btn-info" title="{{ trans('webshoppack::admin/productList.product_edit') }}">
+                                        	<a href="{{ URL:: to(Config::get('webshoppack::admin_uri').'/add?id='.$prd->id) }}" class="btn btn-xs btn-info" title="{{ trans('webshoppack::admin/productList.product_edit') }}">
 											<i class="icon-edit bigger-120"></i></a>
                                         	<a href="{{$product_view_url}}" class="btn btn-success btn-xs" title="{{ trans('webshoppack::admin/productList.product_view') }}">
 											<i class="icon-eye-open bigger-130"></i></a>

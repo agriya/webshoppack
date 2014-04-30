@@ -371,3 +371,16 @@ CREATE TABLE `message` (
   `rel_table` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `api_exclude_tags`
+--
+
+DROP TABLE IF EXISTS `api_exclude_tags`;
+CREATE TABLE `api_exclude_tags` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `tags` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

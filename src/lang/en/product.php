@@ -160,6 +160,7 @@ return array(
 'product_listing_download' => 'Most Sold',
 'product_listing_free' => 'Free',
 'product_listing_featured' => 'Featured',
+'keyword_search_title' => 'Keyword..',
 );
 
 ?>

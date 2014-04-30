@@ -33,7 +33,7 @@ class CUtil
 				}
 			}
 		}
-		$user_details['profile_url'] = '#';
+		$user_details['profile_url'] = \URL::to(\Config::get('webshopauthenticate::uri'))."/".$user_details['user_code']."-". strtolower(str_replace(" ","", $user_details['first_name']));
 		return $user_details;
 	}
 
@@ -237,10 +237,16 @@ class CUtil
 	 *
 	 * @return boolean
 	 */
-	public static function isShopOwner()
+	public static function isShopOwner($user_id = null)
 	{
-		$user = \Config::get('webshoppack::logged_user_id');
-		$logged_user_id = $user();
+		if(is_null($user_id))
+		{
+			$user = \Config::get('webshoppack::logged_user_id');
+			$logged_user_id = $user();
+		}
+		else
+			$logged_user_id = $user_id;
+
 		if($logged_user_id > 0)
 		{
 			$details = UsersShopDetails::Select('is_shop_owner', 'paypal_id')->where('user_id', $logged_user_id)->first();
@@ -539,5 +545,16 @@ class CUtil
 			return $return_str.$extra_char;
 		}
 		return $text;
+	}
+
+	public static function arraytolower(array $array, $round = 0)
+	{
+	  	return unserialize(serialize($array));
+	}
+
+	public static function remminLength($val)
+	{
+		if(strlen($val)>=4)
+			return $val;
 	}
 }
