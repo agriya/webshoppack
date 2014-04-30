@@ -35,6 +35,8 @@ Run the db seed
 
 Add the following to app/routes.php
 
+	Route::controller(Config::get('webshoppack::uri').'/view/{slug_url}', 'Agriya\Webshoppack\ViewProductController');
+
 	Route::group(array('before'	=>	'validate_admin'), function(){
 		Route::controller(
 			Config::get('webshoppack::admin_uri').'/list', 'Agriya\Webshoppack\AdminProductListController'
