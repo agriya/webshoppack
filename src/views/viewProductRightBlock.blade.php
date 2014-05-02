@@ -46,7 +46,7 @@
 	                        <p><a href='{{$edit_url}}' class="btn btn-default btn-xs">{{ trans('webshoppack::edit') }}</a></p>
 	                    @endif
 
-	                    @if(Sentry::check())
+	                    @if(Config::get("webshoppack::is_logged_in"))
 	                        @if($logged_user_id != $p_details['product_user_id'])
 	                            <a href="@if($preview_mode){{ $no_url }} @else{{ \Url::to(\Config::get('webshoppack::shop_uri').'/user/message/add/'.$user_details['user_code']) }} @endif" class="fn_signuppop btn btn-default btn-xs">{{ trans('webshoppack::viewProduct.contact') }}</a>
 	                        @endif

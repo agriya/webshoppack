@@ -768,6 +768,12 @@ class AdminProductAddService
 
 	public function validateTabList($p_id, $input_arr = array())
 	{
+		 if($input_arr['product_discount_price'] > 0)
+		 {
+			$input_arr['product_discount_fromdate'] = date('d/m/Y', strtotime($input_arr['product_discount_fromdate']));
+			$input_arr['product_discount_todate'] = date('d/m/Y', strtotime($input_arr['product_discount_todate']));
+		 }
+
 		 $tab_arr = array_map(function ($val){ return false;}, $this->p_tab_arr);
 		 if(count($input_arr) > 0)
 		 {

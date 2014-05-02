@@ -16,7 +16,7 @@ class ListShopController extends \BaseController
 		$this->shopservice->setListShopsSrchArr(\Input::All());
 		$country_arr = $this->shopservice->getCountryList();
 		$q = $this->shopservice->buildShopsListQuery();
-		$perPage	= 10;
+		$perPage = \Config::get('webshoppack::shop_per_page_list');
 		$shops_list 	= $q->paginate($perPage);
 		return \View::make('webshoppack::listShops', compact('shops_list', 'country_arr', 'service_obj'));
 	}

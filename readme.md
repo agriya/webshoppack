@@ -69,36 +69,36 @@ Add the following to app/routes.php
 		Route::controller(
 			Config::get('webshoppack::shop_uri').'/users/shop-details', 'Agriya\Webshoppack\ShopController'
 		);
-		Route::controller(
-			Config::get('webshoppack::shop_uri').'/{url_slug}', 'Agriya\Webshoppack\ViewShopController'
-		);
-		Route::controller(
-			Config::get('webshoppack::shop_uri'), 'Agriya\Webshoppack\ListShopController'
-		);
 		Route::get(Config::get('webshoppack::myProducts'), 'Agriya\Webshoppack\ProductController@productList');
 		Route::post(Config::get('webshoppack::myProducts').'/deleteproduct', 'Agriya\Webshoppack\ProductController@postProductAction');
 	});
+	Route::controller(
+		Config::get('webshoppack::shop_uri').'/{url_slug}', 'Agriya\Webshoppack\ViewShopController'
+	);
+	Route::controller(
+		Config::get('webshoppack::shop_uri'), 'Agriya\Webshoppack\ListShopController'
+	);
 	Route::get(
 		Config::get('webshoppack::uri').'/{path}', function($path) {
 	    $path = substr($path, 0, 1) == '/' ? substr($path, 1) : $path;
 	    $slugs = explode('/', $path);
 
 	    $check = function($page, $slugs) use(&$check) {
-		if($page->parent_category_id == 1) {
-		    return true;
-		}
+	        if($page->parent_category_id == 1) {
+	            return true;
+	        }
 
-		$parent = Agriya\Webshoppack\ProductCategory::find($page->parent_category_id);
-		if($parent->seo_category_name == array_pop($slugs)) {
-		    return $check($parent, $slugs);
-		}
+	        $parent = Agriya\Webshoppack\ProductCategory::find($page->parent_category_id);
+	        if($parent->seo_category_name == array_pop($slugs)) {
+	            return $check($parent, $slugs);
+	        }
 	    };
 		$error = true;
 	    foreach(Agriya\Webshoppack\ProductCategory::where('seo_category_name', '=', array_pop($slugs))->get() as $page) {
-		if($check($page, $slugs)) {
-			$error = true;
-		    break;
-		}
+	        if($check($page, $slugs)) {
+	        	$error = true;
+	            break;
+	        }
 	    }
 	    //todo : handle error
 	    if(!isset($page)) {
@@ -113,7 +113,7 @@ Add the following to app/routes.php
 		Config::get('webshoppack::uri'), 'Agriya\Webshoppack\ProductController@showList'
 	);
 
-## Add the following links in member & admin layouts
+Add the following links in member & admin layouts
 
 	Shops list - URL::to(Config::get('webshoppack::shop_uri'))
 	Products list - URL::to(Config::get('webshoppack::uri'))

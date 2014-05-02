@@ -85,7 +85,7 @@
                     @endif
 
                     <strong>{{ trans('webshoppack::viewProduct.need_more_information') }}</strong>
-                    @if(Sentry::check())
+                    @if(Config::get("webshoppack::is_logged_in"))
                         <a href='@if($preview_mode){{ $no_url }} @else{{ Request::url().'?query=add' }}@endif' class="light-link">{{ trans('webshoppack::viewProduct.ask_the_seller_question') }}</a>
                     @else
                         <a href="{{ url('users/login?form_type=selLogin') }}" class="fn_signuppop light-link">{{ trans('webshoppack::viewProduct.ask_the_seller_question') }}</a>

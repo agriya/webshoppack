@@ -53,26 +53,6 @@
 
 @section('script_content')
 	<script language="javascript" type="text/javascript">
-		$("body").delegate('.pagination a', 'click', function() {
-			var list_url = $(this).attr('href');
-			var queryString = list_url.substr(list_url.indexOf("?") + 1);
-
-			var url_slug = "{{ $url_slug }}";
-			var page_url = 'shop/'+ url_slug + '/product-details';
-			var product_list_url = "{{ URL::to('" + page_url + "') }}";
-			var url = product_list_url + "?" +queryString;
-
-			displayLoadingImage(true);
-			$.ajax({
-                type: 'GET',
-                url: url,
-                success: function(data) {
-					$('#shop_products').html(data);
-					hideLoadingImage(true);
-				}
-            });
-			return false;
-		});
 		$(".fn_signuppop").fancybox({
 	        maxWidth    : 800,
 	        maxHeight   : 630,

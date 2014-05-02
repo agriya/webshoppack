@@ -8,7 +8,7 @@ class AdminProductListController extends \BaseController {
 
 		$d_arr = $products_arr = array();
 		$error_msg = '';
-		$per_page	= 10;
+		$per_page	= \Config::get('webshoppack::shop_product_per_page_list');
 
 		$d_arr['allow_to_change_status'] = true;
 		$d_arr['product_list_title'] =  trans('webshoppack::admin/productList.product_list_title');

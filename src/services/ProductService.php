@@ -206,13 +206,18 @@ class ProductService
 		$qryPart = parse_url($_SERVER['REQUEST_URI']);
 
 		$concat_slash = '/';
-		$pos = strpos($parts['path'], 'products');
 		$parts['path'] = $parts['path'].$concat_slash.$values;
 
+		$port = '';
+		if(isset($parts['port']) && $parts['port'] != "")
+		{
+			$port = ':'.$parts['port'];
+		}
+
 		if($qryString!="" && $qryString!="?")
-			$newUrl = $parts['scheme'].'://'.$parts['host'].$parts['path'].'/'.$qryString;
+			$newUrl = $parts['scheme'].'://'.$parts['host'].$port.$parts['path'].'/'.$qryString;
 		else
-			$newUrl = $parts['scheme'].'://'.$parts['host'].$parts['path'];
+			$newUrl = $parts['scheme'].'://'.$parts['host'].$port.$parts['path'];
 		return $newUrl;
 	}
 	public function getProductCode($seo_title)

@@ -28,16 +28,5 @@ class ViewShopController extends \BaseController
 		$service_obj = new ProductService;
     	return View::make('webshoppack::viewShop', compact('shop_details', 'shop_status', 'default_section_details', 'section_details', 'shop_view_url', 'viewShopServiceObj', 'service_obj', 'product_details', 'breadcrumb_arr', 'url_slug'));
 	}
-
-	/*public function getProductDetails($url_slug)
-	{
-		//Get user id from url slug
-		$service_obj = new ListProductService;
-    	$this->viewShopService->setUserId($url_slug);
-		$q = $this->viewShopService->getShopProductDetails();
-    	$perPage = Config::get('shop.shop_product_per_page_list');;
-		$product_details = $q->paginate($perPage);
-		return View::make('shop/shopProduct', compact('product_details', 'service_obj', 'url_slug'));
-	}*/
 }
 ?>

@@ -41,7 +41,7 @@
     @endif
 
 	<!--<div id="showAddCartBtn" class="js_showAddCartBtn">
-		@if(Sentry::check())
+		@if(Config::get("webshoppack::is_logged_in"))
 			<button name="buy_now" id="buy_now" value="buy_now" type="button" class="btn btn-success btn-lg btn-block custom-btn2">{{ trans('webshoppack::viewProduct.buy_now') }}</button>
 		@else
 			<a href="{{ url('users/login?form_type=selLogin') }}" class="fn_signuppop showAddCartBtn btn btn-success btn-lg btn-block custom-btn2" id="buy_now" action="{{ url('users/signup-pop/selLogin') }}">{{ trans('webshoppack::viewProduct.buy_now') }}</a>

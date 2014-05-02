@@ -80,4 +80,5 @@ return array(
 	'common_err_tip_alpha' => 'Alphabets only',
 	'common_err_tip_minlength' => 'Less than minimum length',
 	'common_err_tip_maxlength' => 'Exceeds maximum length',
+	'from' => 'From',
 );

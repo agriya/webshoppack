@@ -11,7 +11,7 @@ class AdminManageShopController extends \BaseController
 
 		$this->manageShopService->setShopSrchArr(\Input::All());
 		$q = $this->manageShopService->buildShopQuery();
-		$perPage	= 10;
+		$perPage	= \Config::get('webshoppack::shop_per_page_list');
 		$shop_list 	= $q->paginate($perPage);
 
 		foreach($shop_list AS $shopKey => $shop)

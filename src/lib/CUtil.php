@@ -357,7 +357,7 @@ class CUtil
 			else
 			{
 				//return "<small class=\"clsPriSym\">".$currency_symbol. '</small> <strong>' . $currency_symbol_font . $formatted_amt.'</strong>';
-				return '<sup>' . $currency_symbol_font .'</sup><sub>'. $formatted_amt.'</sub>';
+				return '<strong>' . $currency_symbol_font .' '. $formatted_amt.'</strong>';
 			}
 		}
 		return "";
