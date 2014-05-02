@@ -88,11 +88,6 @@ return array(
 'index_page_meta_keywords' => 'These are the keywords for the products page',
 
 /*
-*This view for base file
-*/
-'base_view' => 'webshoppack::base',
-
-/*
 * Setting - package layout
 */
 'package_layout' => 'webshoppack::base',
@@ -146,7 +141,14 @@ return array(
  *
  * @type string
  */
-'login_path' => Config::get('webshopauthenticate::uri').'/login',
+'login_path' => 'webshop/users/login',
+
+/**
+ * The login path is the path where the user if they fail a permission check
+ *
+ * @type string
+ */
+'logout_path' => 'webshop/users/logout',
 
 /**
  * This is the key of the return path that is sent with the redirection to your login_action. Session::get('redirect') will hold the return URL.

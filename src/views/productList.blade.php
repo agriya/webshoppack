@@ -2,7 +2,7 @@
 <title>{{ \Config::get('webshoppack::manage_product_title') }}</title>
 @section('content')
 <h1 class="title-one">{{ \Lang::get('webshoppack::product.list_product') }}</h1>
-<p><a href="{{ Config::get('webshoppack::product_add_url') }}">{{ \Lang::get('webshoppack::product.product_add')  }}</a></p>
+<p><a href="{{ URL::to(Config::get('webshoppack::uri').'/add') }}">{{ \Lang::get('webshoppack::product.product_add')  }}</a></p>
 @if(Session::has('error_message') && Session::get('error_message') != '')
         <div class="alert alert-danger">{{ Session::get('error_message') }}</div>
         <?php Session::forget('error_message'); ?>

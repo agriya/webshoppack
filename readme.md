@@ -112,3 +112,19 @@ Add the following to app/routes.php
 	Route::get(
 		Config::get('webshoppack::uri'), 'Agriya\Webshoppack\ProductController@showList'
 	);
+
+## Add the following links in member & admin layouts
+
+	Shops list - URL::to(Config::get('webshoppack::shop_uri'))
+	Products list - URL::to(Config::get('webshoppack::uri'))
+
+	if (Sentry::check()) use below links
+		Shop Settings - URL::to(Config::get('webshoppack::shop_uri'))
+		Manage Products - URL::to(Config::get('webshoppack::myProducts'))
+		Add Product - URL::to(Config::get('webshoppack::uri').'/add')
+
+	if (Sentry::check() && hasAdminAccess) use below links
+		Manage products - URL::to(Config::get('webshoppack::admin_uri').'/list')
+		Manage category - URL::to(Config::get('webshoppack::admin_product_catalog_uri'))
+		Manage Attributes - URL::to(Config::get('webshoppack::admin_product_attr_uri'))
+		Manage shops - URL::to(Config::get('webshoppack::admin_shop_uri'))

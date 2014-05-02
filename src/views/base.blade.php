@@ -48,7 +48,9 @@
 		                </div>
 			        </div>
 
-			        <h1>{{ Config::get('webshoppack::package_name') }}</h1>
+					<header id="top" class="nav navbar" role="banner">
+			        	@include('webshoppack::headerMenu')
+			        </header>
 
 	                <div class="col-md-12" role="main">
 	                	@yield('content')

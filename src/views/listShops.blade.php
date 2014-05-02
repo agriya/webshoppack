@@ -15,9 +15,6 @@
                             <?php
                                 $shop_user_details = array("first_name" => $shop->first_name, "last_name" => $shop->last_name, "user_code" => $shop->user_code);
                                 $shop_details['url_slug'] = $shop->url_slug;
-                                //$user_image = Agriya\Webshoppack\CUtil::getUserPersonalImage($shop->user_id, 'thumb');
-                                //$feedback_arr = $service_obj->getFeedbackStatus($shop->user_id);
-                                //$feedback_url = FeedbackService::getFeedbackViewURL($shop->user_id);
                                 $shop_items = $service_obj->fetchShopItems($shop->user_id, 0, 3);
                                 $shop_url = $service_obj->getProductShopURL($shop->id, $shop_details);
                                 $user_details = Agriya\Webshoppack\CUtil::getUserDetails($shop->user_id, 'all', $shop_user_details);
@@ -25,7 +22,7 @@
                             <li class="pro-lists store-lists clearfix">
                                 <div class="pull-left">
                                     <div class="pro-listsdetail">
-                                        <p><a href="#" title="{{{ $shop->shop_name }}}" class="light-link font-s18"><strong>{{{ $shop->shop_name }}}</strong></a></p>
+                                        <p><a href="{{ URL::to(Config::get('webshoppack::shop_uri').'/'.$shop->url_slug) }}" title="{{{ $shop->shop_name }}}" class="light-link font-s18"><strong>{{{ $shop->shop_name }}}</strong></a></p>
                                         @if($shop->shop_city != '' && $shop->shop_state != '' && $shop->shop_country != '')
                                             <p>{{{ $shop->shop_city }}}, {{{ $shop->shop_state }}}, {{{ $country_arr[$shop->shop_country] }}}</p>
                                         @elseif($shop->shop_state != '' && $shop->shop_country != '')

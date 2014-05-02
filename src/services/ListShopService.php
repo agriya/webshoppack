@@ -30,11 +30,16 @@ class ListShopService extends ShopService
 	public function buildShopsListQuery()
 	{
 
-		$this->qry = ShopDetails::Select('shop_name', 'shop_details.url_slug', 'shop_details.id', 'shop_city', 'shop_state', 'shop_country', 'users.first_name', 'users.last_name', 'shop_details.user_id')
+		$this->qry = ShopDetails::Select('shop_name', 'shop_details.url_slug', 'shop_details.id', 'shop_city', 'shop_state', 'shop_country', 'users.first_name', 'users.last_name', 'shop_details.user_id', 'users_shop_details.total_products')
 									->join('users', function($join)
 			                         {
 			                             $join->on('users.id', '=', 'shop_details.user_id');
 			                         });
+
+		$this->qry->join('users_shop_details', function($join2)
+		{
+		 $join2->on('users_shop_details.user_id', '=', 'shop_details.user_id');
+		});
 
 		if($this->getSrchVal("owner_name") != "")
 		{
@@ -62,7 +67,7 @@ class ListShopService extends ShopService
 		//$this->qry->Where('users.shop_status', 1);
 		//$this->qry->Where('users.is_shop_owner', 'Yes');
 		$this->qry->groupBy('shop_details.id');
-		//$this->qry->orderBy('users.total_products', 'DESC');
+		$this->qry->orderBy('users_shop_details.total_products', 'DESC');
 		return $this->qry;
 	}
 }
