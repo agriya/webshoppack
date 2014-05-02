@@ -25,8 +25,8 @@
 			</ul>
 		</li>
         <li>
-        	@if (Sentry::check())
-				<a href="{{ URL::to(\Config::get('webshopauthenticate::uri').'/logout') }}"><i class="icon-signout"></i><span class="menu-text">{{ trans('webshoppack::common.logout') }}</span></a>
+        	@if (Config::get('webshoppack::is_logged_in'))
+				<a href="{{ URL::to(\Config::get('webshoppack::logout_path')) }}"><i class="icon-signout"></i><span class="menu-text">{{ trans('webshoppack::common.logout') }}</span></a>
 			@endif
 		</li>
     </ul><!--/.nav-list-->

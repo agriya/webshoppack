@@ -30,9 +30,9 @@
 		<?php
             $user_details = Agriya\Webshoppack\CUtil::getUserDetails($shop_details['user_id']);
         ?>
-        <a href='#' class="light-link">{{ $user_details['display_name'] }}</a>
+        <a href='{{$user_details['profile_url']}}' class="light-link">{{ $user_details['display_name'] }}</a>
 		<ul class="list-unstyled no-mar clearfix">
-        	<li><i class="fa fa-angle-right"></i><span><a href="#" title="">{{ trans("webshoppack::shop.profile_label") }}</a></span></li>
+        	<li><i class="fa fa-angle-right"></i><span><a href="{{$user_details['profile_url']}}" title="">{{ trans("webshoppack::shop.profile_label") }}</a></span></li>
         	@if(Config::get("webshoppack::is_logged_in"))
 				@if(!$viewShopServiceObj->current_user)
 	        		<li><i class="fa fa-angle-right"></i><span><a href="{{ Url::to(Config::get('webshoppack::shop_uri').'/user/message/add/'.$user_details['user_code']) }}" class="fn_signuppop">{{ trans("webshoppack::shop.contact_label") }}</a></span></li>

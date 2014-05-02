@@ -17,7 +17,7 @@
                                 $shop_details['url_slug'] = $shop->url_slug;
                                 $shop_items = $service_obj->fetchShopItems($shop->user_id, 0, 3);
                                 $shop_url = $service_obj->getProductShopURL($shop->id, $shop_details);
-                                $user_details = Agriya\Webshoppack\CUtil::getUserDetails($shop->user_id, 'all', $shop_user_details);
+                                $user_details = Agriya\Webshoppack\CUtil::getUserDetails($shop->user_id);//, 'all', $shop_user_details
                             ?>
                             <li class="pro-lists store-lists clearfix">
                                 <div class="pull-left">
@@ -30,7 +30,7 @@
                                         @elseif($shop->shop_country != '')
                                             <p>{{{ $country_arr[$shop->shop_country] }}}</p>
                                         @endif
-                                        <p>{{ trans('webshoppack::shop.listShops.shop_owner') }}:&nbsp; <a href="#" title="{{ $user_details['display_name'] }}" class="btn-link">{{ $user_details['display_name'] }}</a></p>
+                                        <p>{{ trans('webshoppack::shop.listShops.shop_owner') }}:&nbsp; <a href="{{$user_details['profile_url']}}" title="{{ $user_details['display_name'] }}" class="btn-link">{{ $user_details['display_name'] }}</a></p>
                                     </div>
                                 </div>
                                 <div class="pull-right ml15">

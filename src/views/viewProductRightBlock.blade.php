@@ -71,7 +71,7 @@
                 {{-- Shop details start --}}
                 @if(count($d_arr['shop_details']) > 0)
                     <?php
-                        $shop_url = '#';//$service_obj->getProductShopURL($d_arr['shop_details']['id'], $d_arr['shop_details']);
+                        $shop_url = $service_obj->getProductShopURL($d_arr['shop_details']['id'], $d_arr['shop_details']);
                     ?>
                     <dl>
                         <dt>{{ trans('webshoppack::viewProduct.shop_details') }}</dt>

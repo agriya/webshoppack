@@ -33,7 +33,7 @@ class CUtil
 				}
 			}
 		}
-		$user_details['profile_url'] = \URL::to(\Config::get('webshopauthenticate::uri'))."/".$user_details['user_code']."-". strtolower(str_replace(" ","", $user_details['first_name']));
+		$user_details['profile_url'] = \URL::to(\Config::get('webshopauthenticate::uri'))."/".$user_details['user_code'];//."-". strtolower(str_replace(" ","", $user_details['first_name']));
 		return $user_details;
 	}
 

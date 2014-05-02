@@ -70,13 +70,13 @@
 
             {{-- Share URL block start --}}
 
-                    <div class="social-sharelinks clearfix">
+                    <!--<div class="social-sharelinks clearfix">
                         @if($p_details['demo_url'] != '')
                             {{--<div class="pull-right mt7"><i class="fa fa-search"></i> <a href='{{ $p_details['demo_url'] }}' class="light-link" target="_blank"><strong>{{ trans('webshoppack::viewProduct.view_demo') }}</strong></a></div>--}}
 							<div class="pull-right mt7"><i class="fa fa-search"></i> <a href='{{ Url::to('item/'.$p_details['product_code'].'-'.$p_details['url_slug'].'/demo') }}' class="light-link" target="_blank"><strong>{{ trans('webshoppack::viewProduct.view_demo') }}</strong></a></div>
                         @endif
 
-					</div>
+					</div>-->
 
             {{-- Share URL block end --}}
             <hr />

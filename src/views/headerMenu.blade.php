@@ -22,7 +22,7 @@
 					<a id="drop1" role="button" data-toggle="dropdown" href="{{ URL::to(Config::get('webshoppack::shop_uri')) }}">My Shop
 					<i class="fa fa-caret-down text-muted"></i></a>
 					<ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop1">
-						<li><a href="{{ URL::to(Config::get('webshoppack::shop_uri')) }}">Shop Settings</a></li>
+						<li><a href="{{ URL::to(Config::get('webshoppack::shop_uri').'/users/shop-details') }}">Shop Settings</a></li>
 						<li><a href="{{ URL::to(Config::get('webshoppack::myProducts')) }}">Manage Products</a></li>
 						<li><a href="{{ URL::to(Config::get('webshoppack::uri').'/add') }}">Add Product</a></li>
 					</ul>

@@ -40,7 +40,7 @@
         </div>
     @endif
 
-	<div id="showAddCartBtn" class="js_showAddCartBtn">
+	<!--<div id="showAddCartBtn" class="js_showAddCartBtn">
 		@if(Sentry::check())
 			<button name="buy_now" id="buy_now" value="buy_now" type="button" class="btn btn-success btn-lg btn-block custom-btn2">{{ trans('webshoppack::viewProduct.buy_now') }}</button>
 		@else
@@ -57,5 +57,5 @@
 		@else
 			<a href="{{ url('users/login?form_type=selLogin') }}" class="fn_signuppop btn btn-info btn-lg btn-block custom-btn1">{{ trans('webshoppack::viewProduct.make_an_offer') }}</a>
 		@endif
-	@endif
+	@endif -->
 </div>

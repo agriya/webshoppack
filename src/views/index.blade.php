@@ -52,7 +52,7 @@
 	                                <div class="pro-listsdetail row">
 	                                    <div class="col-lg-8 plft0">
 	                                        <h2 class="title-six"><a href="{{$view_url}}" title="{{{ $product['product_name']  }}}">{{{ $product['product_name'] }}}</a></h2>
-	                                        <p class="pro-des">{{ Lang::get('webshoppack::product.seller_title') }}: <a href='#' target="_blank">{{ $seller_name }}</a></p>
+	                                        <p class="pro-des">{{ Lang::get('webshoppack::product.seller_title') }}: <a href='{{$seller_details['profile_url']}}' target="_blank">{{ $seller_name }}</a></p>
 	                                        <p class="pro-des">{{{ $product['product_highlight_text'] }}}</p>
 	                                    </div>
 	                                    <div class="col-lg-4 buy-block clearfix">

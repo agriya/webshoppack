@@ -35,6 +35,10 @@ class ProductService
 	public function getShopDetails($user_id)
 	{
 		$shop_arr = ShopDetails::whereRaw('user_id = ?', array($user_id))->first(array('id', 'shop_name', 'url_slug', 'shop_slogan'));
+		if(count($shop_arr) > 0)
+		{
+			$shop_arr['shop_url'] = $this->getProductShopURL($shop_arr['id'],$shop_arr);
+		}
 		return $shop_arr;
 	}
 
