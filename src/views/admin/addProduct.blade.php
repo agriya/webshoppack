@@ -103,7 +103,7 @@
 						</div>
 
 						<div class="form-group {{{ $errors->has('product_description') ? 'error' : '' }}}">
-							{{ Form::label('product_description', trans("webshoppack::product.description"), array('class' => 'col-sm-3 control-label required-icon')) }}
+							{{ Form::label('product_description', trans("webshoppack::product.description"), array('class' => 'col-sm-3 control-label')) }}
 							<div class="col-sm-9">
 								{{  Form::textarea('product_description', null, array('class' => 'col-xs-10 col-sm-9 valid fn_editor')); }}
 								<label class="error">{{{ $errors->first('product_description') }}}</label>
@@ -603,7 +603,7 @@
 										<tr id="itemResourceRow_{{ $resources_arr[$inc]['resource_id'] }}" class="formBuilderRow">
 											<td>
 												@if($resources_arr[$inc]['resource_type'] == 'Image')
-													<a href="#"> <img src="{{ URL::asset(Config::get("webshoppack::photos_folder")) .'/'. $resources_arr[$inc]['filename_thumb'] }}" alt="{{ $resources_arr[$inc]['title'] }}" {{ CUtil::DISP_IMAGE(74, 74, $resources_arr[$inc]['t_width'], $resources_arr[$inc]['t_height']) }} /></a>
+													<a href="#"> <img src="{{ URL::asset(Config::get("webshoppack::photos_folder")) .'/'. $resources_arr[$inc]['filename_thumb'] }}" alt="{{ $resources_arr[$inc]['title'] }}" {{ Agriya\Webshoppack\CUtil::DISP_IMAGE(74, 74, $resources_arr[$inc]['t_width'], $resources_arr[$inc]['t_height']) }} /></a>
 												@endif
 											</td>
 											<td>

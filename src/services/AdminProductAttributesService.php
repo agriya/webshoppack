@@ -31,6 +31,7 @@ class AdminProductAttributesService extends AdminCategoryAttributesService
 		$data_arr['validation_rules'] = $validation_rules;
 		$data_arr['default_value'] = $input_arr['attribute_default_value'];
 		$data_arr['is_searchable'] = $input_arr['attribute_is_searchable'];
+		$data_arr['status'] = $input_arr['status'];
 
 		$attribute_id = ProductAttributes::insertGetId($data_arr);
 		if (!empty($input_arr['attribute_options']) && sizeof($input_arr['attribute_options']) > 0)
@@ -116,7 +117,7 @@ class AdminProductAttributesService extends AdminCategoryAttributesService
 						if(strtolower ($attr_details['status']) == "active")
 							$lbl_class = "label-success";
 						elseif(strtolower ($attr_details['status']) == "inactive")
-							$lbl_class = "label-grey arrowed-in arrowed-in-right";
+							$lbl_class = "label-info arrowed-in arrowed-in-right";
 					?>
                 	<span class="label <?php echo $lbl_class ;?>"><?php echo $attr_details['status'];?></span>
                 </td>
@@ -133,7 +134,7 @@ class AdminProductAttributesService extends AdminCategoryAttributesService
 
 	public function getListRow($row_id)
 	{
-		$attr_details = ProductAttributes::Select('id', 'attribute_label', 'attribute_question_type', 'default_value', 'validation_rules', 'status', 'description')->whereRaw('id = ?', array($row_id))->first();
+		$attr_details = ProductAttributes::Select('id', 'attribute_label', 'attribute_question_type', 'default_value', 'validation_rules', 'status', 'description', 'is_searchable')->whereRaw('id = ?', array($row_id))->first();
 		if(count($attr_details) > 0)
 		{
 			$attributes['attribute_id'] = $attr_details['id'];

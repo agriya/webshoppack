@@ -627,7 +627,7 @@
 				$('#description').val(data.description);
 				$('#attribute_question_type').val(data.attribute_question_type);
 				$('#attribute_is_searchable_' + data.attribute_is_searchable).attr('checked','checked');
-				$('#attribute_status_' + data.attribute_status).attr('checked','checked');
+				$('#status_' + data.attribute_status).attr('checked','checked');
 
 				showOptions();
 				$('#attribute_default_value').val(data.default_value);

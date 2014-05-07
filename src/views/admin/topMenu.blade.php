@@ -24,11 +24,17 @@
 				<li {{ (Request::is(Config::get('webshoppack::admin_shop_uri')) ? 'class="active"' : '') }}><a href="{{ URL::to(Config::get('webshoppack::admin_shop_uri')) }}"><i class="icon-double-angle-right"></i>Manage Shops</a></li>
 			</ul>
 		</li>
-        <li>
-        	@if (Config::get('webshoppack::is_logged_in'))
-				<a href="{{ URL::to(\Config::get('webshoppack::logout_path')) }}"><i class="icon-signout"></i><span class="menu-text">{{ trans('webshoppack::common.logout') }}</span></a>
+		<?php
+			$cfg_is_logged_in = Config::get('webshoppack::is_logged_in');
+			$cfg_is_admin = Config::get('webshoppack::is_admin');
+		?>
+		@if($cfg_is_logged_in())
+        	@if($cfg_is_admin())
+		        <li>
+					<a href="{{ URL::to(\Config::get('webshoppack::logout_path')) }}"><i class="icon-signout"></i><span class="menu-text">{{ trans('webshoppack::common.logout') }}</span></a>
+				</li>
 			@endif
-		</li>
+		@endif
     </ul><!--/.nav-list-->
 
     <div class="sidebar-collapse" id="sidebar-collapse">

@@ -14,8 +14,12 @@
         <ul class="nav navbar-nav navbar-right">
         	<li><a href="{{ URL::to(Config::get('webshoppack::uri')) }}">Products</a></li>
             <li><a href="{{ URL::to(Config::get('webshoppack::shop_uri')) }}">Shops</a></li>
-            @if(Config::get('webshoppack::is_logged_in'))
-                @if(Config::get('webshoppack::is_admin'))
+            <?php
+				$cfg_is_logged_in = Config::get('webshoppack::is_logged_in');
+				$cfg_is_admin = Config::get('webshoppack::is_admin');
+			?>
+            @if($cfg_is_logged_in())
+                @if($cfg_is_admin())
                     <li><a href="{{ URL::to(Config::get('webshoppack::admin_uri').'/list') }}">Admin</a></li>
                 @endif
 	            <li class="dropdown">

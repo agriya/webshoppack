@@ -155,7 +155,7 @@
 								</td>
 								<td>
 									<p><i class="fa fa-eye texticon-link"></i> <a href="{{ $view_url }}">{{ \Lang::get('webshoppack::product.product_view')  }}</a></p>{{-- Config::get('webshoppack::product_list_view') --}}
-									<p><i class="fa fa-edit text-info"></i> <a href="{{ Config::get('webshoppack::product_list_edit').$product['id'] }}" class="text-info">{{ \Lang::get('webshoppack::product.product_edit')  }}</a></p>
+									<p><i class="fa fa-edit text-info"></i> <a href="{{ URL:: to(Config::get('webshoppack::uri').'/add?id='.$product->id) }}" class="text-info">{{ \Lang::get('webshoppack::product.product_edit')  }}</a></p>
 									<p><i class="fa fa-trash-o text-danger"></i> <a href="javascript:void(0)" onclick="doAction('{{ $product['id'] }}', 'delete')" class=" text-danger">
 									{{ \Lang::get('webshoppack::product.product_delete')  }}</a></p>
 

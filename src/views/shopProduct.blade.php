@@ -33,19 +33,6 @@
 							@endif
 						@endif
 					</p>
-					<div class="ml15">
-						@if(Config::get("webshoppack::is_logged_in"))
-							{{ Form::open(array('url' => '', 'method' => 'post', 'class' => 'form-horizontal',  'id' => 'checkOutfrm', 'name' => 'checkOutfrm')) }}
-								{{ Form::hidden('pid', $product['id'], array("id" => "pid"))}}
-								{{ Form::hidden('type', 'product', array("id" => "type"))}}
-								<button name="buy_now" id="buy_now" value="buy_now" type="button" class="btn btn-success custom-btn2 btn-sm pull-right">{{ trans('webshoppack::shop.buy_now_label') }}</button>
-							{{ Form::close() }}
-						@else
-							<a href="#">
-								<button name="buy_now" id="buy_now" value="buy_now" type="button" class="btn btn-success custom-btn2 btn-sm pull-right">{{ trans('webshoppack::shop.buy_now_label') }}</button>
-							</a>
-						@endif
-					</div>
 				</div>
 			</div>
 		</li>

@@ -135,8 +135,8 @@ class AdminProductListService extends ProductService
 		if($affected_rows)
 		{
 			//To update user total products count
-			/*MpProductService::updateUserTotalProducts($p_details['product_user_id']);
-			$input_arr['product_id'] = $p_id;
+			ProductService::updateUserTotalProducts($p_details['product_user_id']);
+			/*$input_arr['product_id'] = $p_id;
 			$this->addProductStatusComment($input_arr);*/
 
 			//To send mail
@@ -176,7 +176,7 @@ class AdminProductListService extends ProductService
 		if($affected_rows)
 		{
 			//To update user total products count
-			//MpProductService::updateUserTotalProducts($p_details['product_user_id']);
+			ProductService::updateUserTotalProducts($p_details['product_user_id']);
 			return true;
 		}
 		return false;

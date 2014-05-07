@@ -40,16 +40,4 @@
             @endif
 		</ul>
 	</div>
-
-	<div class="aside-bar">
-        <div class="title-block">
-            <h3>{{ trans("webshoppack::shop.shop_info") }}</h3>
-        </div>
-		<ul class="list-unstyled no-mar clearfix">
-			<li><i class="fa fa-angle-right"></i><span><a href="#">{{ trans("webshoppack::shop.policies_label") }}</a></span></li>
-			@if($viewShopServiceObj->total_products > 0)
-				<li><i class="fa fa-angle-right"></i><span><a href="{{ $shop_view_url }}">{{ $viewShopServiceObj->total_products }} {{ trans("webshoppack::shop.items_sale") }}</a></span></li>
-			@endif
-		</ul>
-	</div>
 </aside>

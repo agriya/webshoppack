@@ -5,7 +5,7 @@
 	</div>
 
 	<div class="page-header mb20">
-		<a href="javascript:void(0);" onclick="window.location.href='{{URL::to('admin/product-attributes')}}';" title="{{ trans('webshoppack::admin/manageCategory.add_new_attribute') }}" class="btn btn-info btn-xs pull-right ml15"><i class="icon-plus-sign"></i> {{ trans('webshoppack::admin/manageCategory.add_new_attribute') }}</a>
+		<a href="javascript:void(0);" onclick="window.location.href='{{ URL::to(Config::get("webshoppack::admin_product_attr_uri"))  }}';" title="{{ trans('webshoppack::admin/manageCategory.add_new_attribute') }}" class="btn btn-info btn-xs pull-right ml15"><i class="icon-plus-sign"></i> {{ trans('webshoppack::admin/manageCategory.add_new_attribute') }}</a>
 		@if($d_arr['category_id'] != $d_arr['root_category_id'] && $attribs_arr['parent'])
 		<a href="javascript:void(0);" onclick="displayParentCategoryAttributes();" title="{{ trans('webshoppack::admin/manageCategory.add_new_attribute') }}" id="linkShowParentAttributes" class="clsHide btn btn-info btn-xs pull-right"><i class="icon-plus-sign"></i> {{ trans('webshoppack::admin/manageCategory.parent_category_attribute') }}</a>
 		@endif

@@ -1551,6 +1551,14 @@ class ProductService
 					unlink($file_path.$data['filename'].'L.'.$data['ext']);
 				}
 			}
+			elseif($data['resource_type'] == 'Archive')
+			{
+				$file_path = \Config::get("webshoppack::archive_folder");
+				if (file_exists($file_path.$data['filename'].'.'.$data['ext']))
+				{
+					unlink($file_path.$data['filename'].'.'.$data['ext']);
+				}
+			}
 		}
 		ProductResource::where('id', '=', $row_id)->delete();
 		return $row_id;
@@ -2059,7 +2067,7 @@ class ProductService
 		if($this->getSearchValue('search_product_category') > 0)
 		{
 			$cat_id_arr = $this->getSubCategoryIds($this->getSearchValue('search_product_category'));
-			$this->qry->whereIn('mp_product.product_category_id', $cat_id_arr);
+			$this->qry->whereIn('Product.product_category_id', $cat_id_arr);
 		}
 
 		if($this->getSearchValue('search_product_status') != '' && $this->getSearchValue('search_product_status') != 'All')

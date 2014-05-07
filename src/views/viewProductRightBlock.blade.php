@@ -52,7 +52,8 @@
 	                        @endif
 	                    @else
 	                    	<?php $login_url = \url(\Config::get('webshopauthenticate::uri').'/login?form_type=selLogin'); ?>
-	                        <a href="{{ $login_url }}" class="fn_signuppop btn btn-default btn-xs">{{ trans('webshoppack::viewProduct.contact') }}</a>
+	                    	<a href="@if($preview_mode){{ $no_url }} @else{{ \Url::to(\Config::get('webshoppack::shop_uri').'/user/message/add/'.$user_details['user_code']) }} @endif" class="fn_signuppop btn btn-default btn-xs">{{ trans('webshoppack::viewProduct.contact') }}</a>
+	                        <!--<a href="{{ $login_url }}" class="fn_signuppop btn btn-default btn-xs">{{ trans('webshoppack::viewProduct.contact') }}</a>-->
 	                    @endif
 	                </div>
 	            </div>

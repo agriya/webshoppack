@@ -45,7 +45,7 @@
                                                     <a href="{{ $view_url }}" class="img81x64"><img src="{{ $p_thumb_img['image_url'] }}" @if(isset($p_thumb_img["thumbnail_width"])) width='{{ $p_thumb_img["thumbnail_width"] }}' height='{{ $p_thumb_img["thumbnail_height"] }}' @endif title="{{{ $prd->product_name  }}}" alt="{{{ $prd->product_name  }}}" /></a>
                                                 </li>
                                             @endforeach
-                                            <li class="shop-border"><a href="#" title="{{ $shop_url }}"><strong>{{ $shop->total_products }} <span class="text-muted">{{Lang::choice('webshoppack::viewProduct.product_choice', $shop->total_products) }}</span></strong></a></li>
+                                            <li class="shop-border"><a href="{{ URL::to(Config::get('webshoppack::shop_uri').'/'.$shop->url_slug) }}" title="{{ $shop_url }}"><strong>{{ $shop->total_products }} <span class="text-muted">{{Lang::choice('webshoppack::viewProduct.product_choice', $shop->total_products) }}</span></strong></a></li>
                                     </ul>
                                 </div>
                             </li>
